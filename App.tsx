@@ -49,7 +49,25 @@ const App: React.FC = () => {
   const [targetLang, setTargetLang] = useState<Language>(DEFAULT_TARGET_LANG);
   const [selectedVoice, setSelectedVoice] = useState<VoiceOption>(DEFAULT_VOICE);
   const [status, setStatus] = useState<ConnectionStatus>(ConnectionStatus.DISCONNECTED);
-  const [history, setHistory] = useState<TranslationItem[]>([]);
+  const [history, setHistory] = useState<TranslationItem[]>(() => {
+    const saved = localStorage.getItem('talklingo_history');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return parsed.map((item: any) => ({
+          ...item,
+          timestamp: new Date(item.timestamp)
+        }));
+      } catch (e) {
+        console.error("Erro ao carregar histórico:", e);
+      }
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('talklingo_history', JSON.stringify(history));
+  }, [history]);
   const [currentTranscription, setCurrentTranscription] = useState<{ input: string, output: string }>({ input: '', output: '' });
   const [paywall, setPaywall] = useState<{ open: boolean; reason?: string }>({ open: false });
   const [isAiTalking, setIsAiTalking] = useState(false);
@@ -658,10 +676,20 @@ const App: React.FC = () => {
                       <p className="text-slate-300 text-sm italic leading-relaxed">{item.originalText}</p>
                     </div>
                   </div>
-                  <div className="flex justify-end max-w-[85%] ml-auto">
-                    <div className="bg-orange-600 p-4 rounded-3xl rounded-tr-none shadow-xl shadow-orange-900/20">
+                  <div className="flex justify-end max-w-[85%] ml-auto group relative">
+                    <div className="bg-orange-600 p-4 rounded-3xl rounded-tr-none shadow-xl shadow-orange-900/20 relative">
                       <p className="text-[10px] font-black text-orange-200 uppercase tracking-wider mb-2 text-right">LINGO AI</p>
-                      <p className="text-white text-base font-bold leading-relaxed">{item.translatedText}</p>
+                      <p className="text-white text-base font-bold leading-relaxed pr-6">{item.translatedText}</p>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(item.translatedText);
+                          alert("Copiado!");
+                        }}
+                        className="absolute bottom-3 right-3 p-1.5 bg-black/20 rounded-lg text-white/50 opacity-0 group-hover:opacity-100 transition-all hover:text-white"
+                        title="Copiar Tradução"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>
+                      </button>
                     </div>
                   </div>
                 </div>
