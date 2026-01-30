@@ -737,22 +737,19 @@ const App: React.FC = () => {
       </main>
 
       <footer className="mt-auto px-6 py-8 border-t border-white/5 bg-black/20">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-4 text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">
-          <div className="flex gap-6">
-            <span className="hover:text-blue-500 cursor-pointer transition-colors">Privacidade</span>
-            <span className="hover:text-blue-500 cursor-pointer transition-colors">Termos</span>
-            <span className="hover:text-blue-500 cursor-pointer transition-colors">Suporte</span>
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 px-4">
+            <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Privacidade</span>
+            <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Termos</span>
+            <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Suporte</span>
             <span
-              onClick={() => {
-                const text = "Olha esse tradutor de voz com IA que incrível! Traduz em tempo real: https://talklingoai-2026.vercel.app/";
-                window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-              }}
-              className="text-orange-500 hover:text-orange-400 cursor-pointer transition-colors font-bold"
+              onClick={handleShareReward}
+              className="text-orange-500 hover:text-orange-400 cursor-pointer transition-colors font-bold px-4 py-1.5 border border-orange-500/20 rounded-full bg-orange-500/5 active:scale-95"
             >
               Compartilhar App 🚀
             </span>
           </div>
-          <p>© 2025 TalkLingo AI • Intelligent Language Bridge</p>
+          <p className="opacity-50">© 2026 TalkLingo AI • Intelligent Language Bridge</p>
         </div>
       </footer>
 
