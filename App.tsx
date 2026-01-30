@@ -241,6 +241,7 @@ const App: React.FC = () => {
         3. ACT AS THE VOICE of the person speaking. Use a natural, native-sounding tone for the target language.
         4. ABSOLUTELY NO metadata, greetings from the AI, or conversational fillers. Only the translation.
         5. Start output as soon as context is clear to minimize latency.
+        6. SPEECH RATE: Speak clearly and at a slightly reduced speed (measured and calm). Avoid rushing. Ensure the listener can understand every word.
         VOICE GENDER: ${voiceToUse.gender}.
       `.trim();
 
