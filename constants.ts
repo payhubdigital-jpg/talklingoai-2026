@@ -13,8 +13,8 @@ export const SUPPORTED_LANGUAGES: Language[] = [
 ];
 
 export const VOICE_OPTIONS: VoiceOption[] = [
-  { id: 'Fenrir', label: 'Fenrir (Masculino)', gender: 'male' },
-  { id: 'Kore', label: 'Kore (Feminino)', gender: 'female' },
+  { id: 'Fenrir', label: 'Voz Homem 👨', gender: 'male' },
+  { id: 'Kore', label: 'Voz Mulher 👩', gender: 'female' },
 ];
 
 export const DEFAULT_SOURCE_LANG = SUPPORTED_LANGUAGES[0];
