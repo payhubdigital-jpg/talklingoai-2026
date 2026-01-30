@@ -34,6 +34,7 @@ export interface VoiceOption {
 export interface UserUsage {
   secondsUsed: number;
   lastResetDate: string;
+  bonusSeconds?: number;
 }
 
 export interface UserProfile {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { GoogleGenAI, LiveServerMessage, Modality, Type } from '@google/genai';
 import {
   Language,
@@ -101,7 +102,27 @@ const App: React.FC = () => {
   const silenceTimerRef = useRef<number | null>(null);
   const isAudioActiveRef = useRef(true);
 
-  const isLocked = !profile.isPremium && profile.usage.secondsUsed >= FREE_LIMIT_SECONDS;
+  const totalLimit = FREE_LIMIT_SECONDS + (profile.usage.bonusSeconds || 0);
+  const isLocked = !profile.isPremium && profile.usage.secondsUsed >= totalLimit;
+
+  const handleShareReward = () => {
+    const text = "Olha esse tradutor de voz com IA que incrível! Traduz em tempo real: https://talklingoai-2026.vercel.app/";
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+
+    // Concede 5 minutos de bônus (300 segundos) se o usuário ainda não for premium
+    if (!profile.isPremium) {
+      const updatedProfile = {
+        ...profile,
+        usage: {
+          ...profile.usage,
+          bonusSeconds: (profile.usage.bonusSeconds || 0) + 300
+        }
+      };
+      setProfile(updatedProfile);
+      localStorage.setItem('talklingo_profile', JSON.stringify(updatedProfile));
+      alert("🎁 PARABÉNS! Você ganhou +5 MINUTOS de bônus por compartilhar!");
+    }
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -122,6 +143,9 @@ const App: React.FC = () => {
       }, 500);
     }
   }, []);
+
+  // Expor para o Paywall poder chamar
+  (window as any).handleShareReward = handleShareReward;
 
   useEffect(() => {
     localStorage.setItem('talklingo_profile', JSON.stringify(profile));
@@ -441,7 +465,7 @@ const App: React.FC = () => {
 
   if (showUpsell) return <UpsellPage onBack={() => setShowUpsell(false)} />;
 
-  const progressPercent = Math.min(100, (profile.usage.secondsUsed / FREE_LIMIT_SECONDS) * 100);
+  const progressPercent = Math.min(100, (profile.usage.secondsUsed / totalLimit) * 100);
 
   return (
     <div className="min-h-screen bg-[#010816] text-slate-100 flex flex-col">
@@ -522,7 +546,7 @@ const App: React.FC = () => {
                 {isLocked ? 'TESTE EXPIRADO' : 'Limite de Uso'}
               </span>
               <span className={`text-[11px] font-black uppercase tracking-wider ${isLocked ? 'text-red-500' : 'text-blue-500'}`}>
-                {Math.floor(profile.usage.secondsUsed / 60)}:{(profile.usage.secondsUsed % 60).toString().padStart(2, '0')} / 1:00
+                {Math.floor(profile.usage.secondsUsed / 60)}:{(profile.usage.secondsUsed % 60).toString().padStart(2, '0')} / {Math.floor(totalLimit / 60)}:00
               </span>
             </div>
             <div className="w-full h-2.5 bg-black/40 rounded-full overflow-hidden border border-white/5">
@@ -628,16 +652,24 @@ const App: React.FC = () => {
             onClick={toggleTranslation}
             disabled={status === ConnectionStatus.CONNECTING}
             className={`
-              relative group w-28 h-28 rounded-full flex items-center justify-center transition-all duration-500 active:scale-90
+              relative group w-28 h-28 rounded-full flex items-center justify-center transition-all duration-500 active:scale-95
               ${isLocked || status === ConnectionStatus.PERMISSION_DENIED
                 ? 'bg-slate-800 border-2 border-red-500/50 cursor-not-allowed shadow-none grayscale'
                 : status === ConnectionStatus.CONNECTED
-                  ? 'bg-red-600 hover:bg-red-500 shadow-[0_0_40px_rgba(220,38,38,0.3)]'
+                  ? 'bg-red-600 hover:bg-red-500 shadow-[0_0_40px_rgba(220,38,38,0.4)]'
                   : status === ConnectionStatus.CONNECTING
-                    ? 'bg-yellow-600 shadow-[0_0_40px_rgba(202,138,4,0.3)]'
-                    : 'bg-blue-600 hover:bg-blue-500 shadow-[0_0_40px_rgba(37,99,235,0.3)]'}
+                    ? 'bg-yellow-600 shadow-[0_0_40px_rgba(202,138,4,0.4)]'
+                    : 'bg-blue-600 hover:bg-blue-500 shadow-[0_0_40px_rgba(37,99,235,0.4)]'}
             `}
           >
+            {status === ConnectionStatus.CONNECTED && !isLocked && (
+              <motion.div
+                animate={{ scale: [1, 1.4, 1], opacity: [0.1, 0.4, 0.1] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="absolute inset-0 bg-red-600 rounded-full"
+              />
+            )}
+
             {isLocked || status === ConnectionStatus.PERMISSION_DENIED ? (
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
             ) : status === ConnectionStatus.CONNECTED ? (
@@ -646,10 +678,6 @@ const App: React.FC = () => {
               <div className="w-10 h-10 border-4 border-white/20 border-t-white rounded-full animate-spin" />
             ) : (
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
-            )}
-
-            {status === ConnectionStatus.CONNECTED && !isLocked && (
-              <div className="absolute inset-[-12px] rounded-full border-2 border-red-500/30 animate-[ping_2s_linear_infinite]" />
             )}
           </button>
           <p className={`text-[11px] font-black uppercase tracking-[0.4em] ${isLocked || status === ConnectionStatus.PERMISSION_DENIED ? 'text-red-500' : 'text-slate-500 animate-pulse'}`}>
