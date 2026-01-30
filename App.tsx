@@ -161,6 +161,8 @@ const App: React.FC = () => {
     sourcesRef.current.clear();
     nextStartTimeRef.current = 0;
     setIsAiTalking(false);
+    // Haptic: Suave
+    if ('vibrate' in navigator) navigator.vibrate(10);
   }, []);
 
   const stopTranslation = useCallback(() => {
@@ -212,6 +214,9 @@ const App: React.FC = () => {
           channelCount: 1
         }
       });
+
+      // Haptic: Confirmação de início
+      if ('vibrate' in navigator) navigator.vibrate([20, 10, 20]);
 
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
       if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
@@ -685,6 +690,7 @@ const App: React.FC = () => {
                       <button
                         onClick={() => {
                           navigator.clipboard.writeText(item.translatedText);
+                          if ('vibrate' in navigator) navigator.vibrate(30);
                           alert("Copiado!");
                         }}
                         className="absolute bottom-3 right-3 p-1.5 bg-black/20 rounded-lg text-white/50 opacity-0 group-hover:opacity-100 transition-all hover:text-white"
