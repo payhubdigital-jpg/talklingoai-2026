@@ -54,6 +54,9 @@ const App: React.FC = () => {
   const [isAiTalking, setIsAiTalking] = useState(false);
   const [isAutoSync, setIsAutoSync] = useState(true);
   const [showUpsell, setShowUpsell] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    return localStorage.getItem('talklingo_onboarding_done') !== 'true';
+  });
 
   const inputAudioContextRef = useRef<AudioContext | null>(null);
   const outputAudioContextRef = useRef<AudioContext | null>(null);
@@ -400,6 +403,13 @@ const App: React.FC = () => {
 
   const handleGoPremium = () => {
     if (profile.isPremium) return;
+
+    // Tracking: Iniciou processo de compra
+    try {
+      (window as any).fbq?.('track', 'InitiateCheckout');
+      (window as any).gtag?.('event', 'begin_checkout');
+    } catch (e) { }
+
     setShowUpsell(true);
   };
 
@@ -671,6 +681,40 @@ const App: React.FC = () => {
           <p>© 2025 TalkLingo AI • Intelligent Language Bridge</p>
         </div>
       </footer>
+
+      {showOnboarding && (
+        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in duration-500">
+          <div className="bg-[#0f172a] border border-blue-500/30 p-8 rounded-[2.5rem] max-w-sm w-full text-center shadow-2xl shadow-blue-500/10">
+            <div className="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
+            </div>
+            <h2 className="text-xl font-black text-white uppercase tracking-tighter mb-4">Bem-vindo ao TalkLingo!</h2>
+            <div className="space-y-4 text-left mb-8">
+              <div className="flex gap-3">
+                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">1</div>
+                <p className="text-xs text-slate-400 font-bold leading-tight">Escolha os idiomas e clique no botão circular azul abaixo.</p>
+              </div>
+              <div className="flex gap-3">
+                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">2</div>
+                <p className="text-xs text-slate-400 font-bold leading-tight">Clique em <strong className="text-white">"Permitir"</strong> quando o navegador pedir acesso ao microfone.</p>
+              </div>
+              <div className="flex gap-3">
+                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">3</div>
+                <p className="text-xs text-slate-400 font-bold leading-tight">Comece a falar naturalmente. A IA traduzirá em tempo real!</p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setShowOnboarding(false);
+                localStorage.setItem('talklingo_onboarding_done', 'true');
+              }}
+              className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-blue-600/20 transition-all active:scale-95"
+            >
+              Vamos Começar!
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
