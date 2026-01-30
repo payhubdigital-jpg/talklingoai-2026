@@ -108,6 +108,28 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
           </div>
         </div>
 
+        {/* Depoimentos */}
+        <div className="mb-20">
+          <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.4em] mb-10 text-center">O que dizem os usuários</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            {[
+              { n: "Ricardo M.", t: "Perfeito para minhas viagens de negócios. A tradução é instantânea e muito precisa.", s: 5 },
+              { n: "Ana Clara", t: "O modo mãos livres é sensacional para conversar sem ficar tocando no celular.", s: 5 },
+              { n: "Gustavo S.", t: "As vozes são muito naturais. Consigo conversar por horas sem parecer robótico.", s: 5 }
+            ].map((d, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(d.s)].map((_, j) => (
+                    <svg key={j} xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                  ))}
+                </div>
+                <p className="text-xs text-slate-300 italic mb-4 leading-relaxed">"{d.t}"</p>
+                <p className="text-[10px] font-black text-white uppercase tracking-widest">{d.n}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Garantia e Selos */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-20">
           <div className="flex items-center gap-4 bg-white/5 px-6 py-4 rounded-3xl border border-white/5">
@@ -116,7 +138,7 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
             </div>
             <div className="text-left">
               <p className="text-[10px] font-black uppercase tracking-widest">7 Dias de Garantia</p>
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Risco zero para você</p>
+              <p className="text-[9px] text-slate-500 uppercase font-bold">Satisfação ou seu dinheiro de volta</p>
             </div>
           </div>
           <div className="flex items-center gap-4 bg-white/5 px-6 py-4 rounded-3xl border border-white/5">
@@ -124,8 +146,8 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
             </div>
             <div className="text-left">
-              <p className="text-[10px] font-black uppercase tracking-widest">Ativação Imediata</p>
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Acesso logo após o checkout</p>
+              <p className="text-[10px] font-black uppercase tracking-widest">Pagamento 100% Seguro</p>
+              <p className="text-[9px] text-slate-500 uppercase font-bold">Criptografia de ponta a ponta</p>
             </div>
           </div>
         </div>

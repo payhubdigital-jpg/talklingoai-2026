@@ -30,3 +30,6 @@ export const FREE_LIMIT_SECONDS = 60; // Limite de 1 minuto (60 segundos)
  * Preço: R$ 37,00 (1º mês) / R$ 47,90 (Recorrência)
  */
 export const PREMIUM_CHECKOUT_URL = 'https://pay.kiwify.com.br/YhmU2fi';
+
+export const WHATSAPP_NUMBER = '5591988864578';
+export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%2C%20tenho%20uma%20d%C3%BAvida%20sobre%20o%20TalkLingo%20AI%21`;
