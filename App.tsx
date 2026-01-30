@@ -28,6 +28,7 @@ import LanguageSelector from './components/LanguageSelector';
 import AudioVisualizer from './components/AudioVisualizer';
 import Paywall from './components/Paywall';
 import UpsellPage from './components/UpsellPage';
+import SocialProof from './components/SocialProof';
 
 const App: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile>(() => {
@@ -707,10 +708,21 @@ const App: React.FC = () => {
             <span className="hover:text-blue-500 cursor-pointer transition-colors">Privacidade</span>
             <span className="hover:text-blue-500 cursor-pointer transition-colors">Termos</span>
             <span className="hover:text-blue-500 cursor-pointer transition-colors">Suporte</span>
+            <span
+              onClick={() => {
+                const text = "Olha esse tradutor de voz com IA que incrível! Traduz em tempo real: https://talklingoai-2026.vercel.app/";
+                window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+              }}
+              className="text-orange-500 hover:text-orange-400 cursor-pointer transition-colors font-bold"
+            >
+              Compartilhar App 🚀
+            </span>
           </div>
           <p>© 2025 TalkLingo AI • Intelligent Language Bridge</p>
         </div>
       </footer>
+
+      <SocialProof />
 
       {/* Floating WhatsApp Support Button */}
       <a
