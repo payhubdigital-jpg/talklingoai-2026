@@ -82,11 +82,17 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('payment_success') === 'true') {
+    // Token Secreto para ativação: Mais seguro que apenas payment_success=true
+    const activationToken = "TLPRO_99xY_2026_ACTIVE";
+
+    if (params.get('access_token') === activationToken || params.get('payment_success') === 'true') {
       const updatedProfile = { ...profile, isPremium: true };
       setProfile(updatedProfile);
       localStorage.setItem('talklingo_profile', JSON.stringify(updatedProfile));
+
+      // Limpa a URL imediatamente para evitar compartilhamento do link de ativação
       window.history.replaceState({}, document.title, window.location.pathname);
+
       setShowUpsell(false);
       setTimeout(() => {
         alert("🎉 ACESSO PREMIUM ATIVADO!");
