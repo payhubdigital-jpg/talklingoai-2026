@@ -728,7 +728,7 @@ const App: React.FC = () => {
             <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Suporte</span>
             <span
               onClick={handleShareReward}
-              className="text-white/40 hover:text-white cursor-pointer transition-colors font-bold px-4 py-1.5 border border-white/10 rounded-full bg-white/5 active:scale-95"
+              className="text-orange-500 hover:text-orange-400 cursor-pointer transition-colors font-bold px-4 py-1.5 border border-orange-500/20 rounded-full bg-orange-500/5 active:scale-95"
             >
               Compartilhar App 🚀
             </span>
