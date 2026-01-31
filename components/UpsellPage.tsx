@@ -18,8 +18,8 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
         <div className="flex items-center font-black text-xl tracking-tight">
           <span className="text-blue-500">Talk</span>
           <span className="text-orange-500">Lingo</span>
-          <div className="ml-1.5 px-1 py-0.5 bg-blue-600/10 border border-blue-500/50 rounded-md">
-            <span className="text-white text-[8px] uppercase font-black">AI</span>
+          <div className="ml-1.5 border-2 border-blue-500/30 rounded-lg px-1.5 py-0.5 flex items-center justify-center bg-blue-600/5">
+            <span className="text-white text-[9px] font-black">AI</span>
           </div>
         </div>
         <div className="w-10" />

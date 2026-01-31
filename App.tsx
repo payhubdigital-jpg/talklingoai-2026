@@ -461,15 +461,16 @@ const App: React.FC = () => {
       />
 
       <header className="sticky top-0 z-50 bg-[#010816]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between shadow-2xl">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           <div className="flex items-center font-black text-2xl tracking-tighter">
             <span className="text-blue-500">Talk</span>
             <span className="text-orange-500">Lingo</span>
-            <div className="ml-2 px-1.5 py-0.5 bg-blue-600/10 border border-blue-500/50 rounded-lg">
-              <span className="text-white text-[10px] uppercase font-black">AI</span>
+            <div className="ml-2 border-2 border-blue-500/30 rounded-xl px-2 py-0.5 flex items-center justify-center bg-blue-600/5">
+              <span className="text-white text-[11px] font-black">AI</span>
             </div>
           </div>
         </div>
+        Eleanor:
 
         <div className="flex items-center gap-4">
           <button
