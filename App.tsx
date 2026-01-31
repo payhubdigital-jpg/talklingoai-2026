@@ -29,6 +29,7 @@ import LanguageSelector from './components/LanguageSelector';
 import AudioVisualizer from './components/AudioVisualizer';
 import Paywall from './components/Paywall';
 import UpsellPage from './components/UpsellPage';
+import PricingPage from './components/PricingPage';
 import SocialProof from './components/SocialProof';
 
 const App: React.FC = () => {
@@ -75,6 +76,7 @@ const App: React.FC = () => {
   const [isAiTalking, setIsAiTalking] = useState(false);
   const [isAutoSync, setIsAutoSync] = useState(true);
   const [showUpsell, setShowUpsell] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(() => {
     return localStorage.getItem('talklingo_onboarding_done') !== 'true';
   });
@@ -447,7 +449,12 @@ const App: React.FC = () => {
     setShowUpsell(true);
   };
 
+  const handleViewPlans = () => {
+    setShowPricing(true);
+  };
+
   if (showUpsell) return <UpsellPage onBack={() => setShowUpsell(false)} />;
+  if (showPricing) return <PricingPage onBack={() => setShowPricing(false)} />;
 
   const progressPercent = Math.min(100, (profile.usage.secondsUsed / totalLimit) * 100);
 
@@ -474,7 +481,7 @@ const App: React.FC = () => {
         <div className="flex items-center gap-4">
           {!profile.isPremium && (
             <button
-              onClick={handleGoPremium}
+              onClick={handleViewPlans}
               className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors border border-transparent hover:border-white/10 hover:bg-white/5 active:scale-95"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
