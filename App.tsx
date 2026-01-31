@@ -465,12 +465,11 @@ const App: React.FC = () => {
           <div className="flex items-center font-black text-2xl tracking-tighter">
             <span className="text-blue-500">Talk</span>
             <span className="text-orange-500">Lingo</span>
-            <div className="ml-2 border-2 border-blue-500/30 rounded-xl px-2 py-0.5 flex items-center justify-center bg-blue-600/5">
-              <span className="text-white text-[11px] font-black">AI</span>
+            <div className="ml-2 border-2 border-blue-500/30 rounded-lg px-2 py-1 flex items-center justify-center bg-blue-600/10">
+              <span className="text-white text-xs font-black">AI</span>
             </div>
           </div>
         </div>
-        Eleanor:
 
         <div className="flex items-center gap-4">
           <button
