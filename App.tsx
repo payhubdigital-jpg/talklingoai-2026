@@ -461,22 +461,13 @@ const App: React.FC = () => {
       />
 
       <header className="sticky top-0 z-50 bg-[#010816]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between shadow-2xl">
-        <div className="flex items-center">
-          <img
-            src="logo.png"
-            alt="TalkLingo AI"
-            className="h-9 w-auto object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-              const fallback = e.currentTarget.parentElement?.querySelector('.logo-fallback') as HTMLElement;
-              if (fallback) fallback.classList.remove('hidden');
-              if (fallback) fallback.classList.add('flex');
-            }}
-          />
-          <div className="logo-fallback hidden items-center gap-1 font-extrabold text-xl tracking-tight">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center font-black text-2xl tracking-tighter">
             <span className="text-blue-500">Talk</span>
             <span className="text-orange-500">Lingo</span>
-            <span className="text-white ml-1 text-sm bg-blue-600/20 px-1.5 py-0.5 rounded border border-blue-500/30">AI</span>
+            <div className="ml-2 px-1.5 py-0.5 bg-blue-600/10 border border-blue-500/50 rounded-lg">
+              <span className="text-white text-[10px] uppercase font-black">AI</span>
+            </div>
           </div>
         </div>
 
