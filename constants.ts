@@ -23,13 +23,20 @@ export const DEFAULT_VOICE = VOICE_OPTIONS[1]; // Kore (Feminino)
 
 export const GEMINI_MODEL = 'models/gemini-2.5-flash-native-audio-latest';
 
-export const FREE_LIMIT_SECONDS = 60; // Limite de 1 minuto (60 segundos)
+export const FREE_LIMIT_SECONDS = 600; // Limite de 10 minutos
 
 /**
  * Link de Checkout da Kiwify atualizado.
  * Preço: R$ 37,00 (1º mês) / R$ 47,90 (Recorrência)
  */
-export const PREMIUM_CHECKOUT_URL = 'https://pay.kiwify.com.br/YhmU2fi';
+export const CHECKOUT_URL_MONTHLY = 'https://pay.kiwify.com.br/YhmU2fi'; // Atualizar com link mensal
+export const CHECKOUT_URL_YEARLY = 'https://pay.kiwify.com.br/PLACEHOLDER_YEARLY'; // Atualizar com link anual
+export const CHECKOUT_URL_LIFETIME = 'https://pay.kiwify.com.br/PLACEHOLDER_LIFETIME'; // Atualizar com link vitalício
+
+/**
+ * Link de Checkout padrão (Mantendo compatibilidade)
+ */
+export const PREMIUM_CHECKOUT_URL = CHECKOUT_URL_MONTHLY;
 
 export const WHATSAPP_NUMBER = '5591988864578';
 export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%2C%20tenho%20uma%20d%C3%BAvida%20sobre%20o%20TalkLingo%20AI%21`;

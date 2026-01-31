@@ -472,12 +472,21 @@ const App: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          {!profile.isPremium && (
+            <button
+              onClick={handleGoPremium}
+              className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors border border-transparent hover:border-white/10 hover:bg-white/5 active:scale-95"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
+              Ver Planos
+            </button>
+          )}
           <button
             onClick={handleGoPremium}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest border transition-all duration-300 ${profile.isPremium ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-default' : 'bg-gradient-to-r from-blue-600 to-blue-700 border-blue-500 text-white shadow-xl shadow-blue-600/20 hover:scale-105 active:scale-95'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
-            {profile.isPremium ? 'Premium' : 'Go Premium'}
+            {profile.isPremium ? 'Premium' : 'Assinar Pro'}
           </button>
           <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
             <div className={`w-2 h-2 rounded-full ${status === ConnectionStatus.CONNECTED ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse' :
@@ -724,7 +733,7 @@ const App: React.FC = () => {
               Compartilhar App 🚀
             </span>
           </div>
-          <p className="opacity-50">© 2026 TalkLingo AI • Intelligent Language Bridge</p>
+          <p className="opacity-50">© 2026 Selecta Sandro Enterprise • All rights reserved</p>
         </div>
       </footer>
 
