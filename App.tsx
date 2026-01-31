@@ -108,20 +108,6 @@ const App: React.FC = () => {
   const handleShareReward = () => {
     const text = "Olha esse tradutor de voz com IA que incrível! Traduz em tempo real: https://talklingoai.vercel.app/";
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-
-    // Concede 5 minutos de bônus (300 segundos) se o usuário ainda não for premium
-    if (!profile.isPremium) {
-      const updatedProfile = {
-        ...profile,
-        usage: {
-          ...profile.usage,
-          bonusSeconds: (profile.usage.bonusSeconds || 0) + 300
-        }
-      };
-      setProfile(updatedProfile);
-      localStorage.setItem('talklingo_profile', JSON.stringify(updatedProfile));
-      alert("🎁 PARABÉNS! Você ganhou +5 MINUTOS de bônus por compartilhar!");
-    }
   };
 
   useEffect(() => {
@@ -144,8 +130,6 @@ const App: React.FC = () => {
     }
   }, []);
 
-  // Expor para o Paywall poder chamar
-  (window as any).handleShareReward = handleShareReward;
 
   useEffect(() => {
     localStorage.setItem('talklingo_profile', JSON.stringify(profile));
@@ -744,7 +728,7 @@ const App: React.FC = () => {
             <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Suporte</span>
             <span
               onClick={handleShareReward}
-              className="text-orange-500 hover:text-orange-400 cursor-pointer transition-colors font-bold px-4 py-1.5 border border-orange-500/20 rounded-full bg-orange-500/5 active:scale-95"
+              className="text-white/40 hover:text-white cursor-pointer transition-colors font-bold px-4 py-1.5 border border-white/10 rounded-full bg-white/5 active:scale-95"
             >
               Compartilhar App 🚀
             </span>

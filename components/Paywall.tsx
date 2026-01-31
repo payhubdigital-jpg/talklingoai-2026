@@ -55,13 +55,13 @@ const Paywall: React.FC<PaywallProps> = ({ isOpen, onClose, reason, onViewOffer 
           >
             VER OFERTA ESPECIAL
           </button>
-
           <button
             onClick={() => (window as any).handleShareReward?.()}
-            className="w-full bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600/30 text-blue-400 font-bold py-4 rounded-3xl transition-all active:scale-[0.98] mb-4 text-center text-xs"
+            className="w-full bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 font-bold py-4 rounded-3xl transition-all active:scale-[0.98] mb-4 text-center text-xs"
           >
-            🎁 COMPARTILHAR PARA GANHAR +5 MIN
+            🚀 COMPARTILHAR APP
           </button>
+
 
           <div className="mt-4 flex flex-col gap-2 w-full">
             <button
