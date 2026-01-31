@@ -102,7 +102,7 @@ const App: React.FC = () => {
   const silenceTimerRef = useRef<number | null>(null);
   const isAudioActiveRef = useRef(true);
 
-  const totalLimit = FREE_LIMIT_SECONDS + (profile.usage.bonusSeconds || 0);
+  const totalLimit = FREE_LIMIT_SECONDS;
   const isLocked = !profile.isPremium && profile.usage.secondsUsed >= totalLimit;
 
   const handleShareReward = () => {
