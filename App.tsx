@@ -106,7 +106,7 @@ const App: React.FC = () => {
   const isLocked = !profile.isPremium && profile.usage.secondsUsed >= totalLimit;
 
   const handleShareReward = () => {
-    const text = "Olha esse tradutor de voz com IA que incrível! Traduz em tempo real: https://talklingoai-2026.vercel.app/";
+    const text = "Olha esse tradutor de voz com IA que incrível! Traduz em tempo real: https://talklingoai.vercel.app/";
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
 
     // Concede 5 minutos de bônus (300 segundos) se o usuário ainda não for premium

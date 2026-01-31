@@ -1,0 +1,15 @@
+{
+    "redirects": [
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "talklingoai-2026.vercel.app"
+                }
+            ],
+            "destination": "https://talklingoai.vercel.app/$1",
+            "permanent": true
+        }
+    ]
+}
