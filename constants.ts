@@ -29,9 +29,9 @@ export const FREE_LIMIT_SECONDS = 600; // Limite de 10 minutos
  * Link de Checkout da Kiwify atualizado.
  * Preço: R$ 37,00 (1º mês) / R$ 47,90 (Recorrência)
  */
-export const CHECKOUT_URL_MONTHLY = 'https://pay.kiwify.com.br/YhmU2fi'; // Atualizar com link mensal
-export const CHECKOUT_URL_YEARLY = 'https://pay.kiwify.com.br/PLACEHOLDER_YEARLY'; // Atualizar com link anual
-export const CHECKOUT_URL_LIFETIME = 'https://pay.kiwify.com.br/PLACEHOLDER_LIFETIME'; // Atualizar com link vitalício
+export const CHECKOUT_URL_MONTHLY = 'https://pay.kiwify.com.br/fBgai5G'; // Link mensal atualizado
+export const CHECKOUT_URL_YEARLY = 'https://pay.kiwify.com.br/sEDENXj'; // Link anual atualizado
+export const CHECKOUT_URL_LIFETIME = 'https://pay.kiwify.com.br/tcL4B07'; // Link vitalício atualizado
 
 /**
  * Link de Checkout padrão (Mantendo compatibilidade)
