@@ -74,7 +74,6 @@ const App: React.FC = () => {
   const [currentTranscription, setCurrentTranscription] = useState<{ input: string, output: string }>({ input: '', output: '' });
   const [paywall, setPaywall] = useState<{ open: boolean; reason?: string }>({ open: false });
   const [isAiTalking, setIsAiTalking] = useState(false);
-  const [isAutoSync, setIsAutoSync] = useState(true);
   const [showUpsell, setShowUpsell] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(() => {
@@ -336,19 +335,7 @@ const App: React.FC = () => {
           },
           onmessage: async (message: LiveServerMessage) => {
             console.log("Mensagem da IA recebida:", message);
-            if (message.toolCall) {
-              for (const fc of message.toolCall.functionCalls) {
-                if (fc.name === 'sync_voice_gender') {
-                  const gender = (fc.args as any).gender;
-                  const newVoice = VOICE_OPTIONS.find(v => v.gender === gender);
-                  if (newVoice && newVoice.id !== voiceToUse.id) {
-                    setSelectedVoice(newVoice);
-                    stopTranslation();
-                    setTimeout(() => startTranslation(newVoice), 300);
-                  }
-                }
-              }
-            }
+
 
             if (message.serverContent?.inputTranscription) {
               inputTranscriptionBuffer.current += message.serverContent.inputTranscription.text;
@@ -580,14 +567,7 @@ const App: React.FC = () => {
               ))}
             </div>
           </div>
-          <button
-            onClick={() => !isLocked && status !== ConnectionStatus.PERMISSION_DENIED && setIsAutoSync(!isAutoSync)}
-            disabled={isLocked || status === ConnectionStatus.PERMISSION_DENIED}
-            className={`w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border transition-all ${isAutoSync ? 'bg-blue-600/10 border-blue-500 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.2)]' : 'bg-slate-950 border-white/10 text-slate-600'}`}
-          >
-            <div className={`w-2 h-2 rounded-full ${isAutoSync ? 'bg-blue-500 animate-pulse' : 'bg-slate-700'}`} />
-            <span className="text-[10px] font-black uppercase tracking-widest">Smart Voice Sync</span>
-          </button>
+
         </div>
 
         <div className="bg-slate-900/50 p-6 rounded-[2.5rem] border border-white/5 shadow-inner flex flex-col gap-6 relative overflow-hidden">

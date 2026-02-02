@@ -10,6 +10,7 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   { code: 'it-IT', name: 'Italiano', flag: '🇮🇹' },
   { code: 'ja-JP', name: '日本語', flag: '🇯🇵' },
   { code: 'zh-CN', name: '中文', flag: '🇨🇳' },
+  { code: 'ko-KR', name: '한국어', flag: '🇰🇷' },
 ];
 
 export const VOICE_OPTIONS: VoiceOption[] = [
