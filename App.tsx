@@ -546,23 +546,30 @@ const App: React.FC = () => {
             sourceLang: sourceLang.code,
             targetLang: targetLang.code
           }] : [])].map((item, idx) => (
-            <div key={item.id + idx} className="flex flex-col gap-8 animate-in slide-in-from-bottom-6 duration-700">
-              <div className="max-w-[95%]">
-                <p className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] mb-3 px-1">
-                  {idx < history.length ? sourceLang.name : (sourceLang.code === 'auto' ? 'Detectando...' : sourceLang.name)}
-                </p>
-                <p className="text-2xl md:text-4xl font-medium text-slate-400 leading-tight tracking-tight">
-                  {item.originalText}
-                </p>
-              </div>
-              <div className="max-w-[95%] mt-4">
-                <p className="text-[9px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">
-                  {targetLang.name}
-                </p>
-                <p className="text-2xl md:text-4xl font-bold text-white leading-tight tracking-tight">
-                  {item.translatedText}
-                </p>
-              </div>
+            <div key={item.id + idx} className="flex flex-col gap-4 animate-in slide-in-from-bottom-6 duration-700">
+              {/* Balão do Usuário (Esquerda) */}
+              {item.originalText && (
+                <div className="flex justify-start max-w-[85%]">
+                  <div className="bg-slate-900/80 border border-white/5 p-4 rounded-3xl rounded-tl-none shadow-xl backdrop-blur-sm">
+                    <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Você • {idx < history.length ? sourceLang.name : 'Voz'}</p>
+                    <p className="text-lg md:text-xl font-medium text-slate-300 leading-relaxed italic">
+                      "{item.originalText}"
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Balão da Tradução (Direita) */}
+              {item.translatedText && (
+                <div className="flex justify-end max-w-[85%] ml-auto">
+                  <div className="bg-blue-600 p-4 rounded-3xl rounded-tr-none shadow-2xl shadow-blue-900/20">
+                    <p className="text-[9px] font-black text-blue-200 uppercase tracking-widest mb-2 text-right">{targetLang.name} • Tradução</p>
+                    <p className="text-lg md:text-2xl font-bold text-white leading-tight">
+                      {item.translatedText}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
           <div ref={historyEndRef} />
@@ -594,18 +601,13 @@ const App: React.FC = () => {
 
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-3 w-full">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">Selecione a Voz para Tradução</p>
-            <div className="flex flex-wrap justify-center gap-2 max-w-md">
-              {VOICE_OPTIONS.map(v => (
-                <button
-                  key={v.id}
-                  onClick={() => setSelectedVoice(v)}
-                  className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${selectedVoice.id === v.id ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-900/40 scale-105' : 'bg-slate-900/50 border-white/5 text-slate-400 hover:border-white/10 hover:bg-slate-800'}`}
-                >
-                  {v.label}
-                </button>
-              ))}
+            <div className="flex items-center gap-2 bg-green-500/10 px-4 py-2 rounded-full border border-green-500/20">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] font-black text-green-500 uppercase tracking-widest">Smart Gender Sync Active</span>
             </div>
+            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tight text-center max-w-xs">
+              A IA detecta e clona o gênero e tom da voz automaticamente para a tradução.
+            </p>
           </div>
 
           <button
