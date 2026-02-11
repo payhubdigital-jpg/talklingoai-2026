@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Language } from '../types';
-import { SUPPORTED_LANGUAGES } from '../constants';
+import { SUPPORTED_LANGUAGES, DETECT_LANGUAGE } from '../constants';
 
 interface LanguageSelectorProps {
   sourceLang: Language;
@@ -19,43 +19,30 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   onSwap,
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-slate-900 rounded-2xl shadow-lg border border-slate-800">
-      <div className="flex-1 w-full">
-        <label className="text-xs font-semibold text-slate-500 uppercase mb-2 block px-1 tracking-wider">Eu falo</label>
-        <select
-          value={sourceLang.code}
-          onChange={(e) => onSourceChange(SUPPORTED_LANGUAGES.find(l => l.code === e.target.value)!)}
-          className="w-full p-3 bg-slate-950 border border-slate-800 text-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
-        >
-          {SUPPORTED_LANGUAGES.map((lang) => (
-            <option key={lang.code} value={lang.code} className="bg-slate-900">
-              {lang.flag} {lang.name}
-            </option>
-          ))}
-        </select>
+    <div className="flex items-center justify-between gap-3 w-full max-w-md mx-auto">
+      {/* Botão Detect Language (Fixo conforme pedido) */}
+      <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl h-14 flex items-center justify-center transition-all hover:bg-white/10">
+        <span className="text-white text-sm font-bold tracking-tight">
+          {DETECT_LANGUAGE.name}
+        </span>
       </div>
 
-      <button
-        onClick={onSwap}
-        className="mt-4 sm:mt-5 p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-orange-500 transition-all shadow-md active:scale-95"
-        title="Inverter idiomas"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m7 21-4-4 4-4"/><path d="M3 17h18"/><path d="m17 3 4 4-4 4"/><path d="M21 7H3"/></svg>
-      </button>
-
-      <div className="flex-1 w-full">
-        <label className="text-xs font-semibold text-slate-500 uppercase mb-2 block px-1 tracking-wider">Traduzir para</label>
+      {/* Botão Target Language Selector */}
+      <div className="flex-1 relative group">
         <select
           value={targetLang.code}
           onChange={(e) => onTargetChange(SUPPORTED_LANGUAGES.find(l => l.code === e.target.value)!)}
-          className="w-full p-3 bg-slate-950 border border-slate-800 text-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
+          className="w-full h-14 bg-white/5 border border-white/10 text-white rounded-2xl px-6 font-bold text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer hover:bg-white/10"
         >
           {SUPPORTED_LANGUAGES.map((lang) => (
             <option key={lang.code} value={lang.code} className="bg-slate-900">
-              {lang.flag} {lang.name}
+              {lang.name}
             </option>
           ))}
         </select>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+        </div>
       </div>
     </div>
   );

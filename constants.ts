@@ -11,7 +11,10 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   { code: 'ja-JP', name: '日本語', flag: '🇯🇵' },
   { code: 'zh-CN', name: '中文', flag: '🇨🇳' },
   { code: 'ko-KR', name: '한국어', flag: '🇰🇷' },
+  { code: 'ar-SA', name: 'العربية', flag: '🇸🇦' },
 ];
+
+export const DETECT_LANGUAGE: Language = { code: 'auto', name: 'Detect language', flag: '🔍' };
 
 export const VOICE_OPTIONS: VoiceOption[] = [
   { id: 'Fenrir', label: 'Voz Homem 👨', gender: 'male' },
