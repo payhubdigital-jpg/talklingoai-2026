@@ -105,8 +105,8 @@ const App: React.FC = () => {
   const outputTranscriptionBuffer = useRef('');
 
   // Silence threshold and timeout
-  const SILENCE_THRESHOLD = 0.002; // Reduzido de 0.01 para ser mais sensível
-  const SILENCE_TIMEOUT_MS = 1500;
+  const SILENCE_THRESHOLD = 0.001; // Reduzido de 0.002 para ser ainda mais sensível
+  const SILENCE_TIMEOUT_MS = 2000; // Aumentado de 1500 para 2000ms para evitar cortes prematuros
   const silenceTimerRef = useRef<number | null>(null);
   const isAudioActiveRef = useRef(true);
 
@@ -244,8 +244,8 @@ const App: React.FC = () => {
         apiKey: apiKey,
         apiVersion: 'v1beta'
       });
-      const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const outputCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
+      const outputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
 
       console.log(`Audio Contexts Initialized. Input Rate: ${inputCtx.sampleRate}, Output Rate: ${outputCtx.sampleRate}`);
 
@@ -285,7 +285,7 @@ const App: React.FC = () => {
             setStatus(ConnectionStatus.CONNECTED);
             const source = inputCtx.createMediaStreamSource(stream);
             const gainNode = inputCtx.createGain();
-            gainNode.gain.value = 1.1;
+            gainNode.gain.value = 1.5; // Aumentado de 1.1 para 1.5 para melhor captação
 
             const scriptProcessor = inputCtx.createScriptProcessor(2048, 1, 1);
             scriptProcessor.onaudioprocess = (e) => {
