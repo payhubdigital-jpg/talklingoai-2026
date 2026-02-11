@@ -89,6 +89,27 @@ const App: React.FC = () => {
   const [showOnboarding, setShowOnboarding] = useState(() => {
     return localStorage.getItem('chatolingo_onboarding_done') !== 'true';
   });
+  const [isIncognito, setIsIncognito] = useState(false);
+
+  useEffect(() => {
+    // Detect Incognito/Anonymous mode
+    const detectIncognito = () => {
+      const fs = (window as any).RequestFileSystem || (window as any).webkitRequestFileSystem;
+      if (!fs) {
+        // Fallback for some browsers: check storage estimate
+        if (navigator.storage && navigator.storage.estimate) {
+          navigator.storage.estimate().then(estimate => {
+            if (estimate.quota && estimate.quota < 120000000) {
+              setIsIncognito(true);
+            }
+          });
+        }
+        return;
+      }
+      fs((window as any).TEMPORARY, 100, () => setIsIncognito(false), () => setIsIncognito(true));
+    };
+    detectIncognito();
+  }, []);
 
   const inputAudioContextRef = useRef<AudioContext | null>(null);
   const outputAudioContextRef = useRef<AudioContext | null>(null);
@@ -210,7 +231,11 @@ const App: React.FC = () => {
     console.log("Botão de tradução clicado!");
     const voiceToUse = forcedVoice || selectedVoice;
     if (isLocked) {
-      setPaywall({ open: true });
+      setPaywall({ open: true, reason: "Seu limite diário gratuito terminou." });
+      return;
+    }
+    if (isIncognito) {
+      alert("⚠️ O modo anônimo não é suportado para garantir a segurança e persistência da sua conta. Por favor, use uma aba normal.");
       return;
     }
     if (status === ConnectionStatus.CONNECTING || status === ConnectionStatus.CONNECTED) {
@@ -612,10 +637,10 @@ const App: React.FC = () => {
 
           <button
             onClick={toggleTranslation}
-            disabled={status === ConnectionStatus.CONNECTING}
+            disabled={status === ConnectionStatus.CONNECTING || isIncognito}
             className={`
                 relative h-20 w-full max-w-md rounded-[2rem] flex items-center justify-center transition-all duration-500 active:scale-95
-                ${isLocked || status === ConnectionStatus.PERMISSION_DENIED
+                ${isLocked || status === ConnectionStatus.PERMISSION_DENIED || isIncognito
                 ? 'bg-slate-800 cursor-not-allowed grayscale'
                 : status === ConnectionStatus.CONNECTED
                   ? 'bg-white shadow-[0_0_50px_rgba(255,255,255,0.2)]'
@@ -625,7 +650,12 @@ const App: React.FC = () => {
               `}
           >
             <div className="flex items-center gap-4">
-              {status === ConnectionStatus.CONNECTED ? (
+              {isIncognito ? (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                  <span className="text-red-500 font-extrabold uppercase tracking-widest text-[11px]">Modo Anônimo Blocked</span>
+                </>
+              ) : status === ConnectionStatus.CONNECTED ? (
                 <>
                   <div className="flex gap-1.5">
                     {[1, 2, 3, 4, 5].map(i => (
