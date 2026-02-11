@@ -547,10 +547,10 @@ const App: React.FC = () => {
           )}
           <button
             onClick={handleGoPremium}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest border transition-all duration-300 ${profile.isPremium ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-default' : 'bg-gradient-to-r from-blue-600 to-blue-700 border-blue-500 text-white shadow-xl shadow-blue-600/20 hover:scale-105 active:scale-95'}`}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest border transition-all duration-300 ${profile.isPremium ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-default' : 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 border-amber-400/50 text-white shadow-xl shadow-amber-600/20 hover:scale-105 active:scale-95'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
-            {profile.isPremium ? 'Premium' : 'Assinar Pro'}
+            Premium
           </button>
 
           <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
@@ -558,7 +558,7 @@ const App: React.FC = () => {
               status === ConnectionStatus.CONNECTING ? 'bg-yellow-500 animate-pulse' :
                 status === ConnectionStatus.PERMISSION_DENIED || isLocked ? 'bg-red-500' : 'bg-slate-700'
               }`} />
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest hidden sm:inline">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
               {status === ConnectionStatus.CONNECTED ?
                 `${Math.floor(sessionSeconds / 60).toString().padStart(2, '0')}:${(sessionSeconds % 60).toString().padStart(2, '0')} / 10:00` :
                 (status === ConnectionStatus.PERMISSION_DENIED ? 'MIC DENIED' : isLocked ? 'LIMIT' : status)
@@ -708,7 +708,7 @@ const App: React.FC = () => {
               Compartilhar App 🚀
             </span>
           </div>
-          <p className="opacity-50">© 2026 Selecta Sandro Enterprise • All rights reserved</p>
+          <p className="opacity-50">© 2026 Sandro Enterprise • All rights reserved</p>
         </div>
       </footer>
 
