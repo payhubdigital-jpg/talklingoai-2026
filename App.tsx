@@ -90,6 +90,20 @@ const App: React.FC = () => {
     return localStorage.getItem('chatolingo_onboarding_done') !== 'true';
   });
   const [isIncognito, setIsIncognito] = useState(false);
+  const [sessionSeconds, setSessionSeconds] = useState(0);
+
+  useEffect(() => {
+    let interval: number | null = null;
+    if (status === ConnectionStatus.CONNECTED) {
+      interval = window.setInterval(() => {
+        setSessionSeconds(prev => (prev < FREE_LIMIT_SECONDS ? prev + 1 : prev));
+      }, 1000);
+    } else {
+      if (interval) clearInterval(interval);
+      setSessionSeconds(0);
+    }
+    return () => { if (interval) clearInterval(interval); };
+  }, [status]);
 
   useEffect(() => {
     // Detect Incognito/Anonymous mode
@@ -545,7 +559,10 @@ const App: React.FC = () => {
                 status === ConnectionStatus.PERMISSION_DENIED || isLocked ? 'bg-red-500' : 'bg-slate-700'
               }`} />
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest hidden sm:inline">
-              {status === ConnectionStatus.PERMISSION_DENIED ? 'MIC DENIED' : isLocked ? 'LIMIT' : status}
+              {status === ConnectionStatus.CONNECTED ?
+                `${Math.floor(sessionSeconds / 60).toString().padStart(2, '0')}:${(sessionSeconds % 60).toString().padStart(2, '0')} / 10:00` :
+                (status === ConnectionStatus.PERMISSION_DENIED ? 'MIC DENIED' : isLocked ? 'LIMIT' : status)
+              }
             </span>
           </div>
         </div>
@@ -626,14 +643,9 @@ const App: React.FC = () => {
         </div>
 
         <div className="flex flex-col items-center gap-6">
-          <div className="flex flex-col items-center gap-3 w-full">
-            <div className="flex items-center gap-2 bg-green-500/10 px-4 py-2 rounded-full border border-green-500/20">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[10px] font-black text-green-500 uppercase tracking-widest">Smart Gender Sync Active</span>
-            </div>
-            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tight text-center max-w-xs">
-              A IA detecta e clona o gênero e tom da voz automaticamente para a tradução.
-            </p>
+          <div className="flex items-center gap-2 bg-green-500/10 px-4 py-2 rounded-full border border-green-500/20">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-[10px] font-black text-green-500 uppercase tracking-widest">Smart Gender Sync Active</span>
           </div>
 
           <button
@@ -712,39 +724,41 @@ const App: React.FC = () => {
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.18-2.18a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
       </a>
 
-      {showOnboarding && (
-        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in duration-500">
-          <div className="bg-[#0f172a] border border-blue-500/30 p-8 rounded-[2.5rem] max-w-sm w-full text-center shadow-2xl shadow-blue-500/10">
-            <div className="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
+      {
+        showOnboarding && (
+          <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in duration-500">
+            <div className="bg-[#0f172a] border border-blue-500/30 p-8 rounded-[2.5rem] max-w-sm w-full text-center shadow-2xl shadow-blue-500/10">
+              <div className="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
+              </div>
+              <h2 className="text-xl font-black text-white uppercase tracking-tighter mb-4">Bem-vindo ao ChatOLingo!</h2>
+              <div className="space-y-4 text-left mb-8">
+                <div className="flex gap-3">
+                  <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">1</div>
+                  <p className="text-xs text-slate-400 font-bold leading-tight">Escolha os idiomas e clique no botão circular azul abaixo.</p>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">2</div>
+                  <p className="text-xs text-slate-400 font-bold leading-tight">Clique em <strong className="text-white">"Permitir"</strong> quando o navegador pedir acesso ao microfone.</p>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">3</div>
+                  <p className="text-xs text-slate-400 font-bold leading-tight">Comece a falar naturalmente. A IA traduzirá em tempo real!</p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setShowOnboarding(false);
+                  localStorage.setItem('chatolingo_onboarding_done', 'true');
+                }}
+                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-blue-600/20 transition-all active:scale-95"
+              >
+                Imersão Total 🚀
+              </button>
             </div>
-            <h2 className="text-xl font-black text-white uppercase tracking-tighter mb-4">Bem-vindo ao ChatOLingo!</h2>
-            <div className="space-y-4 text-left mb-8">
-              <div className="flex gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">1</div>
-                <p className="text-xs text-slate-400 font-bold leading-tight">Escolha os idiomas e clique no botão circular azul abaixo.</p>
-              </div>
-              <div className="flex gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">2</div>
-                <p className="text-xs text-slate-400 font-bold leading-tight">Clique em <strong className="text-white">"Permitir"</strong> quando o navegador pedir acesso ao microfone.</p>
-              </div>
-              <div className="flex gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">3</div>
-                <p className="text-xs text-slate-400 font-bold leading-tight">Comece a falar naturalmente. A IA traduzirá em tempo real!</p>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowOnboarding(false);
-                localStorage.setItem('chatolingo_onboarding_done', 'true');
-              }}
-              className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-blue-600/20 transition-all active:scale-95"
-            >
-              Imersão Total 🚀
-            </button>
           </div>
-        </div>
-      )}
+        )
+      }
     </div>
   );
 };
