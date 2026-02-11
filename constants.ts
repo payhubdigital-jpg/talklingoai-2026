@@ -17,8 +17,11 @@ export const SUPPORTED_LANGUAGES: Language[] = [
 export const DETECT_LANGUAGE: Language = { code: 'auto', name: 'Detect language', flag: '🔍' };
 
 export const VOICE_OPTIONS: VoiceOption[] = [
-  { id: 'Fenrir', label: 'Voz Homem 👨', gender: 'male' },
-  { id: 'Kore', label: 'Voz Mulher 👩', gender: 'female' },
+  { id: 'Kore', label: 'Kore (Feminino)', gender: 'female' },
+  { id: 'Fenrir', label: 'Fenrir (Masculino)', gender: 'male' },
+  { id: 'Puck', label: 'Puck (Jovem/Neutro)', gender: 'male' },
+  { id: 'Charon', label: 'Charon (Sério)', gender: 'male' },
+  { id: 'Zephyr', label: 'Zephyr (Rápida)', gender: 'female' },
 ];
 
 export const DEFAULT_SOURCE_LANG = SUPPORTED_LANGUAGES[0];

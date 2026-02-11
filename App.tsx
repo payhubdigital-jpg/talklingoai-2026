@@ -263,11 +263,13 @@ const App: React.FC = () => {
         CONTEXT: You are facilitating a live conversation. The target language is ${targetLang.name}.
         CORE DIRECTIVE: 
         1. ${sourceLang.code === 'auto' ? 'Detect the source language automatically' : `The source language is ${sourceLang.name}`}.
-        2. When you hear the source language, translate it immediately into ${targetLang.name} audio output.
-        3. When you hear ${targetLang.name}, translate it immediately into the detected source language (or ${sourceLang.name}).
-        4. ACT AS THE VOICE of the person speaking.
-        5. ABSOLUTELY NO metadata, AI typical responses, or fillers. Only translation.
-        6. SPEECH RATE: Measured and clear.
+        2. SMART GENDER SYNC: Detect the gender and tone of the person speaking. If a man speaks, use a male voice for translation. If a woman speaks, use a female voice. Mimic the emotional energy and style of the original speaker (formal, informal, slang, etc.).
+        3. When you hear the source language, translate it immediately into ${targetLang.name} audio output.
+        4. When you hear ${targetLang.name}, translate it immediately into the detected source language (or ${sourceLang.name}).
+        5. LINGUISTIC ACCURACY: Use appropriate register (formal/informal) and idioms (like phrasal verbs) for all nations and languages involved.
+        6. ACT AS THE VOICE of the person speaking.
+        7. ABSOLUTELY NO metadata, AI typical responses, or fillers. Only translation.
+        8. SPEECH RATE: Measured and clear.
         VOICE GENDER: ${voiceToUse.gender}.
       `.trim();
 
@@ -590,20 +592,35 @@ const App: React.FC = () => {
           />
         </div>
 
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-3 w-full">
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-1">Selecione a Voz para Tradução</p>
+            <div className="flex flex-wrap justify-center gap-2 max-w-md">
+              {VOICE_OPTIONS.map(v => (
+                <button
+                  key={v.id}
+                  onClick={() => setSelectedVoice(v)}
+                  className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${selectedVoice.id === v.id ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-900/40 scale-105' : 'bg-slate-900/50 border-white/5 text-slate-400 hover:border-white/10 hover:bg-slate-800'}`}
+                >
+                  {v.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <button
             onClick={toggleTranslation}
             disabled={status === ConnectionStatus.CONNECTING}
             className={`
-              relative h-20 w-full max-w-md rounded-[2rem] flex items-center justify-center transition-all duration-500 active:scale-95
-              ${isLocked || status === ConnectionStatus.PERMISSION_DENIED
+                relative h-20 w-full max-w-md rounded-[2rem] flex items-center justify-center transition-all duration-500 active:scale-95
+                ${isLocked || status === ConnectionStatus.PERMISSION_DENIED
                 ? 'bg-slate-800 cursor-not-allowed grayscale'
                 : status === ConnectionStatus.CONNECTED
                   ? 'bg-white shadow-[0_0_50px_rgba(255,255,255,0.2)]'
                   : status === ConnectionStatus.CONNECTING
                     ? 'bg-yellow-600'
                     : 'bg-white shadow-[0_0_30px_rgba(255,255,255,0.1)]'}
-            `}
+              `}
           >
             <div className="flex items-center gap-4">
               {status === ConnectionStatus.CONNECTED ? (
@@ -630,10 +647,6 @@ const App: React.FC = () => {
               )}
             </div>
           </button>
-
-          <p className="text-[9px] font-black text-slate-500 uppercase tracking-[0.4em]">
-            Google Translate built with Gemini
-          </p>
         </div>
       </div>
 
