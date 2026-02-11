@@ -32,6 +32,8 @@ import UpsellPage from './components/UpsellPage';
 import PricingPage from './components/PricingPage';
 import SocialProof from './components/SocialProof';
 import CallArea from './components/CallArea';
+import LegalPage from './components/LegalPage';
+import SupportPage from './components/SupportPage';
 
 const App: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile>(() => {
@@ -78,6 +80,9 @@ const App: React.FC = () => {
   const [showUpsell, setShowUpsell] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
   const [showCallArea, setShowCallArea] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [showSupport, setShowSupport] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(() => {
     return localStorage.getItem('chatolingo_onboarding_done') !== 'true';
   });
@@ -451,6 +456,9 @@ const App: React.FC = () => {
 
   if (showUpsell) return <UpsellPage onBack={() => setShowUpsell(false)} />;
   if (showPricing) return <PricingPage onBack={() => setShowPricing(false)} />;
+  if (showPrivacy) return <LegalPage type="privacy" onBack={() => setShowPrivacy(false)} />;
+  if (showTerms) return <LegalPage type="terms" onBack={() => setShowTerms(false)} />;
+  if (showSupport) return <SupportPage onBack={() => setShowSupport(false)} />;
   if (showCallArea) return <CallArea profile={profile} onBack={() => setShowCallArea(false)} onShowPricing={() => setShowPricing(true)} />;
 
   const progressPercent = Math.min(100, (profile.usage.secondsUsed / totalLimit) * 100);
@@ -733,9 +741,9 @@ const App: React.FC = () => {
       <footer className="mt-auto px-6 py-8 border-t border-white/5 bg-black/20">
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 px-4">
-            <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Privacidade</span>
-            <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Termos</span>
-            <span className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Suporte</span>
+            <span onClick={() => setShowPrivacy(true)} className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Privacidade</span>
+            <span onClick={() => setShowTerms(true)} className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Termos</span>
+            <span onClick={() => setShowSupport(true)} className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Suporte</span>
             <span
               onClick={handleShareReward}
               className="text-orange-500 hover:text-orange-400 cursor-pointer transition-colors font-bold px-4 py-1.5 border border-orange-500/20 rounded-full bg-orange-500/5 active:scale-95"
