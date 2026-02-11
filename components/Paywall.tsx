@@ -22,7 +22,13 @@ const Paywall: React.FC<PaywallProps> = ({ isOpen, onClose, reason, onViewOffer 
       <div className="relative w-full max-w-md bg-slate-900 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden shadow-orange-500/10 ring-1 ring-white/10 animate-in zoom-in-95 duration-300">
         <div className="h-32 bg-gradient-to-br from-blue-600 via-orange-500 to-orange-700 flex items-center justify-center relative">
           <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)]" />
-          <img src="/icon.png" className="w-16 h-16 rounded-2xl border border-white/30 shadow-xl object-cover" alt="Icon" />
+          <div className="flex items-center font-black text-2xl tracking-tighter bg-black/40 px-5 py-2 rounded-xl backdrop-blur-sm border border-white/10">
+            <span className="text-blue-500">Chat</span>
+            <span className="text-orange-500">OLingo</span>
+            <div className="ml-2 border-2 border-blue-500/30 rounded-lg px-1.5 py-0.5 flex items-center justify-center bg-blue-600/10 h-5">
+              <span className="text-white text-[8px] font-black uppercase">AI</span>
+            </div>
+          </div>
           <button
             onClick={onClose}
             className="absolute top-6 right-6 p-2 rounded-full bg-black/20 text-white/70 hover:bg-black/40 hover:text-white transition-all"
