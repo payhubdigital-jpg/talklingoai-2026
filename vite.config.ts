@@ -15,8 +15,8 @@ export default defineConfig(() => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'icon.png'],
         manifest: {
-          name: 'TalkLingo AI',
-          short_name: 'TalkLingo',
+          name: 'ChatOLingo AI',
+          short_name: 'ChatOLingo',
           description: 'Tradutor de voz em tempo real usando Gemini Live API',
           theme_color: '#010816',
           icons: [

@@ -5,10 +5,10 @@
             "has": [
                 {
                     "type": "host",
-                    "value": "talklingoai-2026.vercel.app"
+                    "value": "chatolingoai-2026.vercel.app"
                 }
             ],
-            "destination": "https://talklingoai.vercel.app/$1",
+            "destination": "https://chatolingoai.vercel.app/$1",
             "permanent": true
         }
     ]

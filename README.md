@@ -1,10 +1,10 @@
-# 📱 TalkLingo AI - Tradutor de Voz em Tempo Real
+# 📱 ChatOLingo AI - Tradutor de Voz em Tempo Real
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Gemini 2.5](https://img.shields.io/badge/Gemini-2.5_Native_Audio-blue)](https://ai.google.dev/)
-[![Deploy to GitHub Pages](https://github.com/SEU_USUARIO/TalkLingo-AI/actions/workflows/deploy.yml/badge.svg)](https://github.com/SEU_USUARIO/TalkLingo-AI/actions/workflows/deploy.yml)
+[![Deploy to GitHub Pages](https://github.com/SEU_USUARIO/ChatOLingo-AI/actions/workflows/deploy.yml/badge.svg)](https://github.com/SEU_USUARIO/ChatOLingo-AI/actions/workflows/deploy.yml)
 
-O **TalkLingo AI** é um ecossistema de tradução simultânea ultra-rápido, desenvolvido para quebrar barreiras linguísticas instantaneamente entre duas pessoas.
+O **ChatOLingo AI** é um ecossistema de tradução simultânea ultra-rápido, desenvolvido para quebrar barreiras linguísticas instantaneamente entre duas pessoas.
 
 ## 🚀 Como salvar no seu GitHub
 
@@ -50,4 +50,4 @@ Para que o deploy automático funcione, vá em **Settings > Secrets and variable
 - `API_KEY`: Sua chave do Gemini API.
 
 ---
-Desenvolvido por **TalkLingo Team** - *Construindo pontes entre culturas.*
+Desenvolvido por **ChatOLingo Team** - *Construindo pontes entre culturas.*

@@ -8,7 +8,7 @@ const ACTIONS = [
     'iniciou uma conversa em Inglês.',
     'economizou 20 minutos de tradução.',
     'ativou o acesso vitalício.',
-    'convidou um amigo para o TalkLingo.',
+    'convidou um amigo para o ChatOLingo.',
     'acabou de se tornar Premium!'
 ];
 

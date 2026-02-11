@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ChatOLingoAI</string>
+    <string name="title_activity_main">ChatOLingoAI</string>
+    <string name="package_name">com.chatolingo.app</string>
+    <string name="custom_url_scheme">com.chatolingo.app</string>
+</resources>

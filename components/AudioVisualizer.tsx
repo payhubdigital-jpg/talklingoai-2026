@@ -12,6 +12,13 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isActive, stream, mod
   const animationRef = useRef<number | undefined>(undefined);
   const analyserRef = useRef<AnalyserNode | null>(null);
 
+  // Use a ref to track mode changes without triggering effect re-execution
+  const modeRef = useRef(mode);
+
+  useEffect(() => {
+    modeRef.current = mode;
+  }, [mode]);
+
   useEffect(() => {
     if (!isActive || !stream || !canvasRef.current) {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
@@ -21,11 +28,11 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isActive, stream, mod
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)({});
     const source = audioContext.createMediaStreamSource(stream);
     const analyser = audioContext.createAnalyser();
-    
+
     // Aumentamos o fftSize para capturar mais detalhes de frequências baixas
     analyser.fftSize = 512;
     analyser.smoothingTimeConstant = 0.8;
-    
+
     source.connect(analyser);
     analyserRef.current = analyser;
 
@@ -46,29 +53,30 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isActive, stream, mod
         sum += dataArray[i];
       }
       const average = sum / bufferLength;
-      
+
       // --- CURVA DE SENSIBILIDADE ---
       // Usamos Math.sqrt para dar um "boost" em volumes baixos na visualização
-      // Isso faz com que a onda se mova mesmo com pouco som.
       const volumeScale = Math.sqrt(average / 128);
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       const width = canvas.width;
       const height = canvas.height;
       const centerY = height / 2;
 
-      const colorPrimary = mode === 'user' ? '#3b82f6' : '#f97316';
+      // Access current mode from ref inside the animation loop
+      const currentMode = modeRef.current;
+      const colorPrimary = currentMode === 'user' ? '#3b82f6' : '#f97316';
 
       // Desenhar 3 camadas de ondas
       for (let n = 0; n < 3; n++) {
         ctx.beginPath();
         ctx.lineWidth = n === 0 ? 3 : 1.5;
         ctx.strokeStyle = n === 0 ? colorPrimary : `${colorPrimary}44`;
-        
+
         const frequency = 0.015 + (n * 0.008);
         const amplitude = (35 * volumeScale) + (n * 3);
-        
+
         for (let x = 0; x < width; x += 2) {
           const y = centerY + Math.sin(x * frequency + phase + (n * 1.5)) * amplitude;
           if (x === 0) ctx.moveTo(x, y);
@@ -87,17 +95,17 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isActive, stream, mod
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       audioContext.close();
     };
-  }, [isActive, stream, mode]);
+  }, [isActive, stream]); // Removed 'mode' from dependency array to prevent AudioContext churn
 
   return (
     <div className="relative w-full flex items-center justify-center py-2">
       {isActive && (
         <div className={`absolute inset-0 blur-2xl opacity-10 ${mode === 'user' ? 'bg-blue-500' : 'bg-orange-500'}`} />
       )}
-      <canvas 
-        ref={canvasRef} 
-        className="w-full h-16 relative z-10" 
-        width={800} 
+      <canvas
+        ref={canvasRef}
+        className="w-full h-16 relative z-10"
+        width={800}
         height={100}
       />
     </div>

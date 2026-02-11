@@ -40,4 +40,4 @@ export const CHECKOUT_URL_LIFETIME = 'https://pay.kiwify.com.br/tcL4B07'; // Lin
 export const PREMIUM_CHECKOUT_URL = CHECKOUT_URL_MONTHLY;
 
 export const WHATSAPP_NUMBER = '5591988864578';
-export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%2C%20tenho%20uma%20d%C3%BAvida%20sobre%20o%20TalkLingo%20AI%21`;
+export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Ol%C3%A1%2C%20tenho%20uma%20d%C3%BAvida%20sobre%20o%20ChatOLingo%20AI%21`;
