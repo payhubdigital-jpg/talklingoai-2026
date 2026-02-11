@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CHECKOUT_URL_MONTHLY } from '../constants';
 
 interface UpsellPageProps {
@@ -7,6 +7,19 @@ interface UpsellPageProps {
 }
 
 const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
+  const [userCount, setUserCount] = useState(128);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setUserCount(prev => {
+        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or +1
+        const next = prev + change;
+        return Math.min(150, Math.max(120, next));
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#010816] text-white overflow-y-auto pb-20 animate-in fade-in duration-500">
       {/* Header */}
@@ -38,7 +51,7 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
           <div className="flex items-center gap-2 bg-green-500/10 px-3 py-1 rounded-full border border-green-500/20">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
             <span className="text-[9px] font-black text-green-500 uppercase tracking-widest">
-              128 usuários traduzindo agora
+              {userCount} usuários traduzindo agora
             </span>
           </div>
         </div>
