@@ -284,18 +284,17 @@ const App: React.FC = () => {
 
       // REFINAMENTO DO INTÉRPRETE: Instruindo a IA a ser a ponte entre duas pessoas
       const systemInstruction = `
-        ROLE: Specialized Bi-directional Simultaneous Interpreter.
+        ROLE: Specialized Bi-directional Simultaneous Interpreter & Vocal Mirror.
         CONTEXT: You are facilitating a live conversation. The target language is ${targetLang.name}.
         CORE DIRECTIVE: 
         1. ${sourceLang.code === 'auto' ? 'Detect the source language automatically' : `The source language is ${sourceLang.name}`}.
-        2. SMART GENDER SYNC: Detect the gender and tone of the person speaking. If a man speaks, use a male voice for translation. If a woman speaks, use a female voice. Mimic the emotional energy and style of the original speaker (formal, informal, slang, etc.).
-        3. When you hear the source language, translate it immediately into ${targetLang.name} audio output.
-        4. When you hear ${targetLang.name}, translate it immediately into the detected source language (or ${sourceLang.name}).
-        5. LINGUISTIC ACCURACY: Use appropriate register (formal/informal) and idioms (like phrasal verbs) for all nations and languages involved.
-        6. ACT AS THE VOICE of the person speaking.
+        2. SMART GENDER SYNC (ULTRA-HIGH FIDELITY): You MUST mirror the Speaker's Gender, Tone, Age, and Emotional State in your translation. If a man speaks, use your most compatible male timbre. If a woman speaks, use your most compatible female timbre. If the speaker is excited, angry, or sad, you MUST reflect that exact emotion in the translated audio. 
+        3. VOCAL CLONING HYPER-REALISM: Act as if you are the speaker's own voice translated. Match their pace, volume, and rhythm exactly.
+        4. When you hear the source language, translate it immediately into ${targetLang.name} audio output.
+        5. When you hear ${targetLang.name}, translate it immediately into the detected source language (or ${sourceLang.name}).
+        6. LINGUISTIC ACCURACY: Use appropriate register (formal/informal) and idioms (like phrasal verbs, local slang, and cultural nuances) for all nations and languages involved.
         7. ABSOLUTELY NO metadata, AI typical responses, or fillers. Only translation.
-        8. SPEECH RATE: Measured and clear.
-        VOICE GENDER: ${voiceToUse.gender}.
+        8. VOICE GENDER BASELINE: ${voiceToUse.gender}. (Note: Use this as a starting point but dynamically shift your tone/gender to match the speaker for every turn).
       `.trim();
 
       const sessionPromise = ai.live.connect({

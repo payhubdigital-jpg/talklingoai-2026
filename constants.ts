@@ -12,6 +12,20 @@ export const SUPPORTED_LANGUAGES: Language[] = [
   { code: 'zh-CN', name: '中文', flag: '🇨🇳' },
   { code: 'ko-KR', name: '한국어', flag: '🇰🇷' },
   { code: 'ar-SA', name: 'العربية', flag: '🇸🇦' },
+  { code: 'ru-RU', name: 'Русский', flag: '🇷🇺' },
+  { code: 'tr-TR', name: 'Türkçe', flag: '🇹🇷' },
+  { code: 'hi-IN', name: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'nl-NL', name: 'Nederlands', flag: '🇳🇱' },
+  { code: 'sv-SE', name: 'Svenska', flag: '🇸🇪' },
+  { code: 'pl-PL', name: 'Polski', flag: '🇵🇱' },
+  { code: 'id-ID', name: 'Bahasa Indonesia', flag: '🇮🇩' },
+  { code: 'vi-VN', name: 'Tiếng Việt', flag: '🇻🇳' },
+  { code: 'th-TH', name: 'ไทย', flag: '🇹🇭' },
+  { code: 'el-GR', name: 'Ελληνικά', flag: '🇬🇷' },
+  { code: 'he-IL', name: 'עברית', flag: '🇮🇱' },
+  { code: 'fi-FI', name: 'Suomi', flag: '🇫🇮' },
+  { code: 'no-NO', name: 'Norsk', flag: '🇳🇴' },
+  { code: 'da-DK', name: 'Dansk', flag: '🇩🇰' },
 ];
 
 export const DETECT_LANGUAGE: Language = { code: 'auto', name: 'Detect language', flag: '🔍' };
