@@ -105,8 +105,8 @@ const App: React.FC = () => {
   const outputTranscriptionBuffer = useRef('');
 
   // Silence threshold and timeout
-  const SILENCE_THRESHOLD = 0.001; // Reduzido de 0.002 para ser ainda mais sensível
-  const SILENCE_TIMEOUT_MS = 2000; // Aumentado de 1500 para 2000ms para evitar cortes prematuros
+  const SILENCE_THRESHOLD = 0.015; // Aumentado significativamente para ignorar ruído ambiente. Exige fala próxima.
+  const SILENCE_TIMEOUT_MS = 1500; // Tempo reduzido para cortar o canal mais rápido após a fala.
   const silenceTimerRef = useRef<number | null>(null);
   const isAudioActiveRef = useRef(true);
 
@@ -284,8 +284,14 @@ const App: React.FC = () => {
             console.log("Handshake WebSocket concluído! Conexão ativa.");
             setStatus(ConnectionStatus.CONNECTED);
             const source = inputCtx.createMediaStreamSource(stream);
+
+            // Noise Reduction: Filtro passa-alta para remover ruídos graves (ar-condicionado, ventoinhas)
+            const filter = inputCtx.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 200; // Corta frequências abaixo de 200Hz
+
             const gainNode = inputCtx.createGain();
-            gainNode.gain.value = 1.5; // Aumentado de 1.1 para 1.5 para melhor captação
+            gainNode.gain.value = 1.1; // Reduzido para evitar amplificar ruídos distantes
 
             const scriptProcessor = inputCtx.createScriptProcessor(2048, 1, 1);
             scriptProcessor.onaudioprocess = (e) => {
@@ -319,8 +325,6 @@ const App: React.FC = () => {
               }
 
               if (!isAudioActiveRef.current) {
-                // Log de volume baixo silencioso (opcional para debug)
-                if (Math.random() < 0.005) console.log("Áudio suspenso: volume muito baixo", maxVal.toFixed(5));
                 return;
               }
 
@@ -337,7 +341,8 @@ const App: React.FC = () => {
                 }
               }).catch(() => { });
             };
-            source.connect(gainNode);
+            source.connect(filter);
+            filter.connect(gainNode);
             gainNode.connect(scriptProcessor);
             scriptProcessor.connect(inputCtx.destination);
           },
