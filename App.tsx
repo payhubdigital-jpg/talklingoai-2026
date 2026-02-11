@@ -467,18 +467,12 @@ const App: React.FC = () => {
       <header className="sticky top-0 z-50 bg-[#010816]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between shadow-2xl">
         <div className="flex items-center">
           <div className="flex items-center gap-2 group cursor-pointer">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
-            </div>
-            <div className="flex flex-col -gap-1">
-              <div className="flex items-center font-black text-xl tracking-tighter uppercase">
-                <span className="text-blue-500">Chat</span>
-                <span className="text-orange-500">OLingo</span>
-                <div className="ml-2 border-2 border-blue-500/30 rounded-lg px-2 py-0.5 flex items-center justify-center bg-blue-600/10 h-6">
-                  <span className="text-white text-[10px] font-black">AI</span>
-                </div>
+            <div className="flex items-center font-black text-2xl tracking-tighter">
+              <span className="text-blue-500">Chat</span>
+              <span className="text-orange-500">OLingo</span>
+              <div className="ml-2 border-2 border-blue-500/30 rounded-lg px-2 py-0.5 flex items-center justify-center bg-blue-600/10 h-6">
+                <span className="text-white text-[10px] font-black uppercase">AI</span>
               </div>
-              <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em] -mt-1">Artificial Intelligence</span>
             </div>
           </div>
         </div>
