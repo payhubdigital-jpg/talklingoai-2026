@@ -39,9 +39,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.5 }}
-                    className="mb-4"
+                    className="mb-4 text-center"
                 >
-                    <h1 className="text-4xl font-black text-center tracking-tight">
+                    <h2 className="text-2xl font-bold text-slate-700 mb-2">Bem-vindo</h2>
+                    <h1 className="text-3xl font-black tracking-tight">
+                        <span className="text-slate-700">ao </span>
                         <span className="text-[#FF6B35]">Chat</span>
                         <span className="text-[#FFB84D]">Olingo</span>
                         <span className="text-[#FF6B35]"> AI</span>
@@ -53,10 +55,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
-                    className="text-center text-slate-600 text-lg mb-12 leading-relaxed"
+                    className="text-center text-slate-600 text-base mb-12 leading-relaxed"
                 >
-                    Speak any language,<br />
-                    understand each other.
+                    Tradução impulsionada por<br />
+                    inteligência artificial
                 </motion.p>
 
                 {/* Buttons */}
@@ -68,12 +70,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) => {
                 >
                     <button
                         onClick={onGetStarted}
-                        className="w-full py-4 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 text-white font-bold text-lg rounded-full shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 text-white font-bold text-lg rounded-full shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 active:scale-95 transition-all duration-300"
                     >
-                        Get Started
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg>
+                        Iniciar
                     </button>
 
                     <button
