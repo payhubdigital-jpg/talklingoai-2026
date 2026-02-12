@@ -514,7 +514,13 @@ const App: React.FC = () => {
   const progressPercent = Math.min(100, (profile.usage.secondsUsed / totalLimit) * 100);
 
   return (
-    <div className="min-h-screen bg-[#010816] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-[#FAF8F5] via-[#FFF5EB] to-[#FAF8F5] text-slate-800 flex flex-col relative overflow-hidden">
+      {/* Decorative background pattern */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none" style={{
+        backgroundImage: 'radial-gradient(circle, #FFB84D 1px, transparent 1px)',
+        backgroundSize: '40px 40px'
+      }} />
+
       <Paywall
         isOpen={paywall.open}
         onClose={() => setPaywall({ open: false })}
@@ -522,43 +528,31 @@ const App: React.FC = () => {
         onViewOffer={handleGoPremium}
       />
 
-      <header className="sticky top-0 z-50 bg-[#010816]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between shadow-2xl">
-        <div className="flex items-center">
-          <div className="flex items-center gap-2 group cursor-pointer">
-            <div className="flex items-center font-black text-2xl tracking-tighter">
-              <span className="text-blue-500">Chat</span>
-              <span className="text-orange-500">OLingo</span>
-              <div className="ml-2 border-2 border-blue-500/30 rounded-lg px-2 py-0.5 flex items-center justify-center bg-blue-600/10 h-6">
-                <span className="text-white text-[10px] font-black uppercase">AI</span>
-              </div>
-            </div>
+      <header className="sticky top-0 z-50 bg-[#FAF8F5] backdrop-blur-xl border-b border-orange-200/30 px-6 py-4 flex items-center justify-between shadow-lg">
+        <div className="flex items-center gap-3">
+          <div className="text-3xl">🦉</div>
+          <div className="flex items-center font-black text-2xl tracking-tight">
+            <span className="text-[#FF6B35]">Chat</span>
+            <span className="text-[#FFB84D]">Olingo</span>
+            <span className="text-[#FF6B35] ml-1">AI</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          {!profile.isPremium && (
-            <button
-              onClick={handleViewPlans}
-              className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors border border-transparent hover:border-white/10 hover:bg-white/5 active:scale-95"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
-              Ver Planos
-            </button>
-          )}
+        <div className="flex items-center gap-3">
           <button
             onClick={handleGoPremium}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest border transition-all duration-300 ${profile.isPremium ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-default' : 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 border-amber-400/50 text-white shadow-xl shadow-amber-600/20 hover:scale-105 active:scale-95'}`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-wide border transition-all duration-300 ${profile.isPremium ? 'bg-amber-100 border-amber-300 text-amber-600 cursor-default' : 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 border-amber-400 text-white shadow-lg shadow-amber-500/30 hover:scale-105 active:scale-95'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
             Premium
           </button>
 
-          <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+          <div className="flex items-center gap-2 bg-orange-100/50 px-3 py-1.5 rounded-full border border-orange-200">
             <div className={`w-2 h-2 rounded-full ${status === ConnectionStatus.CONNECTED ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse' :
               status === ConnectionStatus.CONNECTING ? 'bg-yellow-500 animate-pulse' :
-                status === ConnectionStatus.PERMISSION_DENIED || isLocked ? 'bg-red-500' : 'bg-slate-700'
+                status === ConnectionStatus.PERMISSION_DENIED || isLocked ? 'bg-red-500' : 'bg-slate-400'
               }`} />
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+            <span className="text-[10px] font-black text-slate-600 uppercase tracking-wide">
               {status === ConnectionStatus.CONNECTED ?
                 `${Math.floor(sessionSeconds / 60).toString().padStart(2, '0')}:${(sessionSeconds % 60).toString().padStart(2, '0')} / 10:00` :
                 (status === ConnectionStatus.PERMISSION_DENIED ? 'MIC DENIED' : isLocked ? 'LIMIT' : status)
@@ -571,12 +565,10 @@ const App: React.FC = () => {
       <main className="flex-1 flex flex-col min-h-0 overflow-hidden relative">
         <div className="flex-1 overflow-y-auto px-4 py-8 scroll-smooth scrollbar-hide flex flex-col gap-10">
           {history.length === 0 && !currentTranscription.input && (
-            <div className="h-full flex flex-col items-center justify-center opacity-20 text-center px-10">
-              <div className="w-24 h-24 mb-6 rounded-full border-4 border-slate-700 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
-              </div>
-              <p className="text-sm font-black uppercase tracking-[0.5em]">ChatOLingo AI</p>
-              <p className="text-[10px] font-bold uppercase tracking-widest mt-4">Intérprete Simultâneo de Bolso</p>
+            <div className="h-full flex flex-col items-center justify-center opacity-40 text-center px-10">
+              <div className="text-6xl mb-4">🦉</div>
+              <p className="text-lg font-black text-orange-500 tracking-tight">ChatOLingo AI</p>
+              <p className="text-xs font-medium text-slate-500 tracking-wide mt-2">Intérprete Simultâneo de Bolso</p>
             </div>
           )}
 
@@ -593,9 +585,9 @@ const App: React.FC = () => {
               {/* Balão do Usuário (Esquerda) */}
               {item.originalText && (
                 <div className="flex justify-start max-w-[85%]">
-                  <div className="bg-slate-900/80 border border-white/5 p-4 rounded-3xl rounded-tl-none shadow-xl backdrop-blur-sm">
-                    <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Você • {idx < history.length ? sourceLang.name : 'Voz'}</p>
-                    <p className="text-lg md:text-xl font-medium text-slate-300 leading-relaxed italic">
+                  <div className="bg-white border border-orange-100 p-4 rounded-3xl rounded-tl-none shadow-lg">
+                    <p className="text-[9px] font-black text-orange-400 uppercase tracking-wide mb-2">Você • {idx < history.length ? sourceLang.name : 'Voz'}</p>
+                    <p className="text-lg md:text-xl font-medium text-slate-700 leading-relaxed">
                       "{item.originalText}"
                     </p>
                   </div>
@@ -605,8 +597,8 @@ const App: React.FC = () => {
               {/* Balão da Tradução (Direita) */}
               {item.translatedText && (
                 <div className="flex justify-end max-w-[85%] ml-auto">
-                  <div className="bg-blue-600 p-4 rounded-3xl rounded-tr-none shadow-2xl shadow-blue-900/20">
-                    <p className="text-[9px] font-black text-blue-200 uppercase tracking-widest mb-2 text-right">{targetLang.name} • Tradução</p>
+                  <div className="bg-gradient-to-br from-orange-400 to-orange-500 p-4 rounded-3xl rounded-tr-none shadow-xl">
+                    <p className="text-[9px] font-black text-orange-100 uppercase tracking-wide mb-2 text-right">{targetLang.name} • Tradução</p>
                     <p className="text-lg md:text-2xl font-bold text-white leading-tight">
                       {item.translatedText}
                     </p>
@@ -631,7 +623,7 @@ const App: React.FC = () => {
       </main>
 
       {/* CONTROLES FIXOS NO RODAPÉ */}
-      <div className="bg-[#010816] border-t border-white/5 px-6 pt-6 pb-10 space-y-6 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+      <div className="bg-[#FAF8F5] border-t border-orange-200/50 px-6 pt-6 pb-10 space-y-6 shadow-[0_-10px_30px_rgba(255,139,53,0.1)] relative z-10">
         <div className={(isLocked || status === ConnectionStatus.PERMISSION_DENIED) ? "opacity-30 pointer-events-none" : ""}>
           <LanguageSelector
             sourceLang={sourceLang}
@@ -642,31 +634,31 @@ const App: React.FC = () => {
           />
         </div>
 
-        <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-2 bg-green-500/10 px-4 py-2 rounded-full border border-green-500/20">
+        <div className="flex flex-col items-center gap-6 relative z-10">
+          <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full border border-green-200">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-[10px] font-black text-green-500 uppercase tracking-widest">Smart Gender Sync Active</span>
+            <span className="text-[10px] font-black text-green-600 uppercase tracking-wide">Smart Gender Sync Active</span>
           </div>
 
           <button
             onClick={toggleTranslation}
             disabled={status === ConnectionStatus.CONNECTING || isIncognito}
             className={`
-                relative h-20 w-full max-w-md rounded-[2rem] flex items-center justify-center transition-all duration-500 active:scale-95
+                relative h-20 w-full max-w-md rounded-full flex items-center justify-center transition-all duration-500 active:scale-95 shadow-2xl
                 ${isLocked || status === ConnectionStatus.PERMISSION_DENIED || isIncognito
-                ? 'bg-slate-800 cursor-not-allowed grayscale'
+                ? 'bg-slate-300 cursor-not-allowed grayscale'
                 : status === ConnectionStatus.CONNECTED
-                  ? 'bg-white shadow-[0_0_50px_rgba(255,255,255,0.2)]'
+                  ? 'bg-gradient-to-r from-green-400 to-green-500 shadow-green-500/30'
                   : status === ConnectionStatus.CONNECTING
-                    ? 'bg-yellow-600'
-                    : 'bg-white shadow-[0_0_30px_rgba(255,255,255,0.1)]'}
+                    ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-yellow-500/30'
+                    : 'bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 shadow-orange-500/40 hover:shadow-orange-500/60 hover:scale-105'}
               `}
           >
             <div className="flex items-center gap-4">
               {isIncognito ? (
                 <>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                  <span className="text-red-500 font-extrabold uppercase tracking-widest text-[11px]">Modo Anônimo Blocked</span>
+                  <span className="text-red-500 font-extrabold uppercase tracking-wide text-[11px]">Modo Anônimo Blocked</span>
                 </>
               ) : status === ConnectionStatus.CONNECTED ? (
                 <>
@@ -676,18 +668,18 @@ const App: React.FC = () => {
                         key={i}
                         animate={{ height: [12, 35, 12] }}
                         transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.1 }}
-                        className="w-1.5 bg-slate-900 rounded-full"
+                        className="w-1.5 bg-white rounded-full"
                       />
                     ))}
                   </div>
-                  <span className="text-slate-900 font-extrabold uppercase tracking-[0.2em] text-[11px]">Ouvindo você...</span>
+                  <span className="text-white font-extrabold uppercase tracking-wide text-[11px]">Ouvindo você...</span>
                 </>
               ) : status === ConnectionStatus.CONNECTING ? (
-                <div className="w-8 h-8 border-4 border-slate-900/20 border-t-slate-900 rounded-full animate-spin" />
+                <div className="w-8 h-8 border-4 border-white/20 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#010816" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
-                  <span className="text-slate-900 font-extrabold uppercase tracking-[0.2em] text-[11px]">Toque para Traduzir</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
+                  <span className="text-white font-extrabold uppercase tracking-wide text-[11px]">Toque para Traduzir</span>
                 </>
               )}
             </div>
@@ -695,20 +687,20 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      <footer className="px-6 py-8 border-t border-white/5 bg-black/20">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">
+      <footer className="px-6 py-8 border-t border-orange-200/50 bg-orange-50/30 relative z-10">
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 text-[10px] font-black text-slate-500 uppercase tracking-wide">
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 px-4">
-            <span onClick={() => setShowPrivacy(true)} className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Privacidade</span>
-            <span onClick={() => setShowTerms(true)} className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Termos</span>
-            <span onClick={() => setShowSupport(true)} className="hover:text-blue-500 cursor-pointer transition-colors px-2 py-1">Suporte</span>
+            <span onClick={() => setShowPrivacy(true)} className="hover:text-orange-500 cursor-pointer transition-colors px-2 py-1">Privacidade</span>
+            <span onClick={() => setShowTerms(true)} className="hover:text-orange-500 cursor-pointer transition-colors px-2 py-1">Termos</span>
+            <span onClick={() => setShowSupport(true)} className="hover:text-orange-500 cursor-pointer transition-colors px-2 py-1">Suporte</span>
             <span
               onClick={handleShareReward}
-              className="text-orange-500 hover:text-orange-400 cursor-pointer transition-colors font-bold px-4 py-1.5 border border-orange-500/20 rounded-full bg-orange-500/5 active:scale-95"
+              className="text-orange-500 hover:text-orange-600 cursor-pointer transition-colors font-bold px-4 py-1.5 border border-orange-400/30 rounded-full bg-orange-100/50 active:scale-95"
             >
               Compartilhar App 🚀
             </span>
           </div>
-          <p className="opacity-50">© 2026 Sandro Enterprise • All rights reserved</p>
+          <p className="opacity-60">© 2026 Sandro Enterprise • All rights reserved</p>
         </div>
       </footer>
 
@@ -726,24 +718,22 @@ const App: React.FC = () => {
 
       {
         showOnboarding && (
-          <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in duration-500">
-            <div className="bg-[#0f172a] border border-blue-500/30 p-8 rounded-[2.5rem] max-w-sm w-full text-center shadow-2xl shadow-blue-500/10">
-              <div className="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" x2="12" y1="19" y2="22" /></svg>
-              </div>
-              <h2 className="text-xl font-black text-white uppercase tracking-tighter mb-4">Bem-vindo ao ChatOLingo!</h2>
+          <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in duration-500">
+            <div className="bg-[#FAF8F5] border border-orange-200 p-8 rounded-[2.5rem] max-w-sm w-full text-center shadow-2xl">
+              <div className="text-6xl mb-4">🦉</div>
+              <h2 className="text-xl font-black text-orange-600 uppercase tracking-tight mb-4">Bem-vindo ao ChatOLingo!</h2>
               <div className="space-y-4 text-left mb-8">
                 <div className="flex gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">1</div>
-                  <p className="text-xs text-slate-400 font-bold leading-tight">Escolha os idiomas e clique no botão circular azul abaixo.</p>
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center text-[10px] font-black text-white shrink-0">1</div>
+                  <p className="text-xs text-slate-600 font-bold leading-tight">Escolha os idiomas e clique no botão laranja abaixo.</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">2</div>
-                  <p className="text-xs text-slate-400 font-bold leading-tight">Clique em <strong className="text-white">"Permitir"</strong> quando o navegador pedir acesso ao microfone.</p>
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center text-[10px] font-black text-white shrink-0">2</div>
+                  <p className="text-xs text-slate-600 font-bold leading-tight">Clique em <strong className="text-orange-600">"Permitir"</strong> quando o navegador pedir acesso ao microfone.</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">3</div>
-                  <p className="text-xs text-slate-400 font-bold leading-tight">Comece a falar naturalmente. A IA traduzirá em tempo real!</p>
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center text-[10px] font-black text-white shrink-0">3</div>
+                  <p className="text-xs text-slate-600 font-bold leading-tight">Comece a falar naturalmente. A IA traduzirá em tempo real!</p>
                 </div>
               </div>
               <button
@@ -751,7 +741,7 @@ const App: React.FC = () => {
                   setShowOnboarding(false);
                   localStorage.setItem('chatolingo_onboarding_done', 'true');
                 }}
-                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-blue-600/20 transition-all active:scale-95"
+                className="w-full py-4 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-black uppercase tracking-wide rounded-full shadow-xl shadow-orange-500/30 transition-all active:scale-95"
               >
                 Imersão Total 🚀
               </button>
