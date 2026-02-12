@@ -609,8 +609,8 @@ const App: React.FC = () => {
               {/* Balão da Tradução (Direita) */}
               {item.translatedText && (
                 <div className="flex justify-end max-w-[85%] ml-auto">
-                  <div className="bg-gradient-to-br from-orange-400 to-orange-500 p-4 rounded-3xl rounded-tr-none shadow-xl">
-                    <p className="text-[9px] font-black text-orange-100 uppercase tracking-wide mb-2 text-right">{targetLang.name} • Tradução</p>
+                  <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-3xl rounded-tr-none shadow-xl shadow-orange-500/20 border border-orange-400/30">
+                    <p className="text-[9px] font-black text-orange-50 uppercase tracking-wide mb-2 text-right">{targetLang.name} • Tradução</p>
                     <p className="text-lg md:text-2xl font-bold text-white leading-tight">
                       {item.translatedText}
                     </p>
