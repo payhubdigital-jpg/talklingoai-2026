@@ -18,15 +18,20 @@ const Paywall: React.FC<PaywallProps> = ({ isOpen, onClose, reason, onViewOffer 
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#010816]/95 backdrop-blur-xl animate-in fade-in duration-300">
-      <div className="relative w-full max-w-md bg-slate-900 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden shadow-orange-500/10 ring-1 ring-white/10 animate-in zoom-in-95 duration-300">
-        <div className="h-32 bg-gradient-to-br from-blue-600 via-orange-500 to-orange-700 flex items-center justify-center relative">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-xl animate-in fade-in duration-300">
+      <div className="relative w-full max-w-md bg-[#FAF8F5] border border-orange-200 rounded-[2.5rem] shadow-2xl overflow-hidden shadow-orange-500/20 ring-1 ring-orange-100 animate-in zoom-in-95 duration-300">
+        <div className="h-32 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 flex items-center justify-center relative">
           <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)]" />
-          <div className="flex items-center font-black text-2xl tracking-tighter bg-black/40 px-5 py-2 rounded-xl backdrop-blur-sm border border-white/10">
-            <span className="text-blue-500">Chat</span>
-            <span className="text-orange-500">OLingo</span>
-            <div className="ml-2 border-2 border-blue-500/30 rounded-lg px-1.5 py-0.5 flex items-center justify-center bg-blue-600/10 h-5">
-              <span className="text-white text-[8px] font-black uppercase">AI</span>
+          <div className="flex items-center gap-2">
+            {/* Owl logo */}
+            <div className="relative">
+              <div className="w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center">
+                <div className="text-2xl">🦉</div>
+              </div>
+              <div className="absolute -bottom-1 left-2 w-2 h-2 bg-white rotate-45 shadow-lg" />
+            </div>
+            <div className="flex items-center font-black text-xl tracking-tight">
+              <span className="text-white">ChatOLingo AI</span>
             </div>
           </div>
           <button
@@ -38,18 +43,18 @@ const Paywall: React.FC<PaywallProps> = ({ isOpen, onClose, reason, onViewOffer 
         </div>
 
         <div className="p-8 flex flex-col items-center text-center">
-          <h2 className="text-2xl font-black text-white mb-2 leading-tight">Limite Atingido</h2>
-          <p className="text-slate-400 text-sm font-medium mb-8">
+          <h2 className="text-2xl font-black text-slate-800 mb-2 leading-tight">Limite Atingido</h2>
+          <p className="text-slate-600 text-sm font-medium mb-8">
             {reason || "Sua sessão gratuita terminou. Libere agora para continuar sua conversa."}
           </p>
 
           <div className="w-full space-y-4 mb-8">
-            <div className="flex items-center gap-4 p-4 bg-slate-950/50 rounded-3xl border border-white/5">
-              <div className="w-10 h-10 bg-orange-500/10 text-orange-500 rounded-full flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-4 p-4 bg-white rounded-3xl border border-orange-100 shadow-sm">
+              <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
               </div>
               <div className="text-left">
-                <p className="text-xs font-bold text-white uppercase tracking-wider">Conversas Ilimitadas</p>
+                <p className="text-xs font-bold text-slate-800 uppercase tracking-wider">Conversas Ilimitadas</p>
                 <p className="text-[10px] text-slate-500 font-medium">Traduza horas sem interrupções</p>
               </div>
             </div>
@@ -57,13 +62,13 @@ const Paywall: React.FC<PaywallProps> = ({ isOpen, onClose, reason, onViewOffer 
 
           <button
             onClick={onViewOffer}
-            className="w-full bg-orange-600 hover:bg-orange-500 text-white font-black py-5 rounded-3xl shadow-xl shadow-orange-600/20 transition-all active:scale-[0.98] mb-4 text-center"
+            className="w-full bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-black py-5 rounded-full shadow-xl shadow-orange-500/30 transition-all active:scale-[0.98] mb-4 text-center"
           >
             VER OFERTA ESPECIAL
           </button>
           <button
             onClick={() => (window as any).handleShareReward?.()}
-            className="w-full bg-orange-500/10 border border-orange-500/20 hover:bg-orange-500/20 text-orange-500 font-bold py-4 rounded-3xl transition-all active:scale-[0.98] mb-4 text-center text-xs"
+            className="w-full bg-orange-100 border border-orange-200 hover:bg-orange-200 text-orange-600 font-bold py-4 rounded-full transition-all active:scale-[0.98] mb-4 text-center text-xs"
           >
             🚀 COMPARTILHAR APP
           </button>
@@ -71,14 +76,14 @@ const Paywall: React.FC<PaywallProps> = ({ isOpen, onClose, reason, onViewOffer 
           <div className="mt-4 flex flex-col gap-2 w-full">
             <button
               onClick={onClose}
-              className="text-xs font-bold text-slate-500 uppercase tracking-widest hover:text-slate-300 transition-colors"
+              className="text-xs font-bold text-slate-500 uppercase tracking-widest hover:text-slate-700 transition-colors"
             >
               Agora não
             </button>
 
             <button
               onClick={handleTestActivation}
-              className="mt-6 text-[9px] text-slate-700 hover:text-blue-500 font-bold uppercase tracking-[0.2em] transition-colors border-t border-white/5 pt-4"
+              className="mt-6 text-[9px] text-slate-400 hover:text-orange-500 font-bold uppercase tracking-[0.2em] transition-colors border-t border-orange-200 pt-4"
             >
               Simular Compra (Apenas Teste)
             </button>
