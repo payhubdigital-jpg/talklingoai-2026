@@ -34,6 +34,7 @@ import SocialProof from './components/SocialProof';
 import CallArea from './components/CallArea';
 import LegalPage from './components/LegalPage';
 import SupportPage from './components/SupportPage';
+import WelcomeScreen from './components/WelcomeScreen';
 
 const App: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile>(() => {
@@ -88,6 +89,9 @@ const App: React.FC = () => {
   const [showSupport, setShowSupport] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(() => {
     return localStorage.getItem('chatolingo_onboarding_done') !== 'true';
+  });
+  const [showWelcome, setShowWelcome] = useState(() => {
+    return localStorage.getItem('chatolingo_welcome_done') !== 'true';
   });
   const [isIncognito, setIsIncognito] = useState(false);
   const [sessionSeconds, setSessionSeconds] = useState(0);
@@ -749,6 +753,16 @@ const App: React.FC = () => {
           </div>
         )
       }
+
+      {/* Welcome Screen */}
+      {showWelcome && (
+        <WelcomeScreen
+          onGetStarted={() => {
+            setShowWelcome(false);
+            localStorage.setItem('chatolingo_welcome_done', 'true');
+          }}
+        />
+      )}
     </div>
   );
 };
