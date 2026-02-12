@@ -29,21 +29,19 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onGetStarted }) => {
                     initial={{ y: -20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
-                    className="relative mb-8 drop-shadow-2xl"
+                    className="relative mb-8"
                 >
-                    <div className="w-44 h-44 bg-white rounded-[2.5rem] shadow-2xl flex items-center justify-center relative p-8">
+                    <div className="w-64 h-64 flex items-center justify-center relative">
                         <img
                             src="/logo.png"
                             alt="ChatOLingo Mascot"
-                            className="w-full h-full object-contain transform hover:scale-110 transition-transform duration-500"
+                            className="w-full h-full object-contain drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
                             onError={(e) => {
                                 // Fallback to emoji if image fails to load
                                 e.currentTarget.style.display = 'none';
-                                e.currentTarget.parentElement!.innerHTML = '<div class="text-8xl">🦉</div>';
+                                e.currentTarget.parentElement!.innerHTML = '<div class="text-9xl grayscale opacity-20">🦉</div>';
                             }}
                         />
-                        {/* Speech bubble tail */}
-                        <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-8 h-8 bg-white rotate-45 shadow-lg" />
                     </div>
                 </motion.div>
 

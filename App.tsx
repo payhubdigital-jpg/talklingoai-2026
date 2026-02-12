@@ -536,11 +536,9 @@ const App: React.FC = () => {
         <div className="flex items-center gap-3">
           {/* Owl logo in speech bubble */}
           <div className="relative">
-            <div className="w-14 h-14 bg-white rounded-2xl shadow-lg flex items-center justify-center p-2.5">
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+            <div className="w-24 h-24 -my-4 flex items-center justify-center">
+              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-lg" />
             </div>
-            {/* Speech bubble tail */}
-            <div className="absolute -bottom-1.5 left-3 w-3 h-3 bg-white rotate-45 shadow-lg" />
           </div>
 
           <div className="flex items-center font-black text-2xl tracking-tight">
