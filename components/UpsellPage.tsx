@@ -21,10 +21,16 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#010816] text-white overflow-y-auto pb-20 animate-in fade-in duration-500">
+    <div className="min-h-screen bg-gradient-to-br from-[#FAF8F5] via-[#FFF5EB] to-[#FAF8F5] text-slate-800 overflow-y-auto pb-20 animate-in fade-in duration-500">
+      {/* Decorative background pattern */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
+        backgroundImage: 'radial-gradient(circle, #FFB84D 1px, transparent 1px)',
+        backgroundSize: '40px 40px'
+      }} />
+
       {/* Header */}
-      <nav className="p-6 flex items-center justify-between border-b border-white/5 bg-[#010816]/80 backdrop-blur-md sticky top-0 z-50">
-        <button onClick={onBack} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+      <nav className="p-6 flex items-center justify-between border-b border-orange-200/30 bg-[#FAF8F5]/80 backdrop-blur-md sticky top-0 z-50">
+        <button onClick={onBack} className="flex items-center gap-2 text-slate-600 hover:text-orange-600 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
           <span className="text-xs font-bold uppercase tracking-widest">Voltar</span>
         </button>
@@ -33,36 +39,36 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-4xl mx-auto px-6 pt-12 text-center">
+      <div className="max-w-4xl mx-auto px-6 pt-12 text-center relative z-10">
         <div className="flex flex-col items-center mb-8">
           <div className="h-4" />
-          <div className="flex items-center gap-2 bg-green-500/10 px-3 py-1 rounded-full border border-green-500/20">
+          <div className="flex items-center gap-2 bg-green-100 px-3 py-1 rounded-full border border-green-200">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-[9px] font-black text-green-500 uppercase tracking-widest">
+            <span className="text-[9px] font-black text-green-600 uppercase tracking-widest">
               {userCount} usuários traduzindo agora
             </span>
           </div>
         </div>
 
-        <div className="inline-block px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-[10px] font-black uppercase tracking-[0.3em] mb-6">
+        <div className="inline-block px-4 py-1.5 rounded-full bg-orange-100 border border-orange-200 text-orange-600 text-[10px] font-black uppercase tracking-[0.3em] mb-6">
           Oferta de Lançamento: Vagas Limitadas
         </div>
 
         <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
           Sua voz sem fronteiras <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-amber-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600">
             Acesso Ilimitado.
           </span>
         </h1>
 
-        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium">
+        <p className="text-slate-600 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium">
           Diga adeus aos limites de tempo. Fale, entenda e seja entendido em qualquer lugar do mundo.
         </p>
 
         {/* Card Principal */}
-        <div className="bg-[#0a0f1d] border border-orange-500/20 rounded-[3rem] p-8 md:p-12 shadow-[0_0_50px_rgba(249,115,22,0.1)] relative overflow-hidden mb-12">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 blur-[100px] -mr-32 -mt-32" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/5 blur-[100px] -ml-32 -mb-32" />
+        <div className="bg-white border border-orange-200 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-orange-500/10 relative overflow-hidden mb-12">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-200/30 blur-[100px] -mr-32 -mt-32" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-100/30 blur-[100px] -ml-32 -mb-32" />
 
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="text-left space-y-6">
@@ -74,31 +80,31 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
                   { t: "Suporte Prioritário", d: "Respostas mais rápidas da IA em qualquer horário." }
                 ].map((item, i) => (
                   <div key={i} className="flex gap-4">
-                    <div className="w-6 h-6 rounded-full bg-orange-500/20 text-orange-500 flex items-center justify-center shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
                     </div>
                     <div>
-                      <h3 className="text-sm font-black uppercase tracking-wide text-orange-100">{item.t}</h3>
-                      <p className="text-xs text-slate-400">{item.d}</p>
+                      <h3 className="text-sm font-black uppercase tracking-wide text-slate-800">{item.t}</h3>
+                      <p className="text-xs text-slate-600">{item.d}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-black/40 border border-white/5 rounded-[2.5rem] p-8 flex flex-col items-center justify-center space-y-6">
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-[2.5rem] p-8 flex flex-col items-center justify-center space-y-6 shadow-lg">
               <div className="text-center">
                 <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1">Oferta de Boas-Vindas</p>
                 <div className="flex items-center justify-center gap-1">
-                  <span className="text-2xl font-bold text-orange-500">R$</span>
-                  <span className="text-6xl font-black text-white">29</span>
+                  <span className="text-2xl font-bold text-orange-600">R$</span>
+                  <span className="text-6xl font-black text-slate-800">29</span>
                   <span className="text-2xl font-bold text-slate-500">,90</span>
                 </div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
+                <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1">
                   Cobrado mensalmente
                 </p>
-                <div className="inline-block mt-3 px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full">
-                  <p className="text-orange-500 text-[9px] font-black uppercase tracking-widest">Apenas 7 vagas restantes hoje</p>
+                <div className="inline-block mt-3 px-3 py-1 bg-orange-100 border border-orange-200 rounded-full">
+                  <p className="text-orange-600 text-[9px] font-black uppercase tracking-widest">Apenas 7 vagas restantes hoje</p>
                 </div>
               </div>
 
@@ -106,7 +112,7 @@ const UpsellPage: React.FC<UpsellPageProps> = ({ onBack }) => {
                 href={CHECKOUT_URL_MONTHLY}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-black py-5 rounded-2xl shadow-[0_10px_30px_rgba(234,88,12,0.3)] transition-all hover:scale-[1.03] active:scale-[0.98] text-center text-sm tracking-widest"
+                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black py-5 rounded-full shadow-xl shadow-orange-500/30 transition-all hover:scale-[1.03] active:scale-[0.98] text-center text-sm tracking-widest"
               >
                 QUERO ACESSO ILIMITADO
               </a>

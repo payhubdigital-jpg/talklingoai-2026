@@ -47,18 +47,30 @@ const PricingPage: React.FC<PricingPageProps> = ({ onBack }) => {
     };
 
     return (
-        <div className="min-h-screen bg-[#010816] text-white overflow-y-auto pb-20 animate-in fade-in duration-500">
+        <div className="min-h-screen bg-gradient-to-br from-[#FAF8F5] via-[#FFF5EB] to-[#FAF8F5] text-slate-800 overflow-y-auto pb-20 animate-in fade-in duration-500">
+            {/* Decorative background pattern */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
+                backgroundImage: 'radial-gradient(circle, #FFB84D 1px, transparent 1px)',
+                backgroundSize: '40px 40px'
+            }} />
+
             {/* Header */}
-            <nav className="p-6 flex items-center justify-between border-b border-white/5 bg-[#010816]/80 backdrop-blur-md sticky top-0 z-50">
-                <button onClick={onBack} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+            <nav className="p-6 flex items-center justify-between border-b border-orange-200/30 bg-[#FAF8F5]/80 backdrop-blur-md sticky top-0 z-50">
+                <button onClick={onBack} className="flex items-center gap-2 text-slate-600 hover:text-orange-600 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
                     <span className="text-xs font-bold uppercase tracking-widest">Voltar</span>
                 </button>
-                <div className="flex items-center font-black text-xl tracking-tight uppercase">
-                    <span className="text-blue-500">Chat</span>
-                    <span className="text-orange-500">OLingo</span>
-                    <div className="ml-1.5 border-2 border-blue-500/30 rounded-lg px-2 py-1 flex items-center justify-center bg-blue-600/10">
-                        <span className="text-white text-[10px] font-black uppercase">AI</span>
+                <div className="flex items-center gap-3">
+                    <div className="relative">
+                        <div className="w-10 h-10 bg-white rounded-xl shadow-md flex items-center justify-center">
+                            <div className="text-2xl">🦉</div>
+                        </div>
+                        <div className="absolute -bottom-1 left-2 w-2 h-2 bg-white rotate-45 shadow-md" />
+                    </div>
+                    <div className="flex items-center font-black text-lg tracking-tight">
+                        <span className="text-[#FF6B35]">Chat</span>
+                        <span className="text-[#FFB84D]">Olingo</span>
+                        <span className="text-[#FF6B35] ml-1">AI</span>
                     </div>
                 </div>
                 <div className="w-10" />
